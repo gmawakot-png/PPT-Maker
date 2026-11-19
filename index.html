@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कोटद्वार स्कूल एवं कॉलेज - स्मार्ट PPT जनरेटर | Kotdwar PPT Studio</title>
+    <style>
+        :root {
+            --primary: #0f2c59;
+            --secondary: #1d4ed8;
+            --accent: #d97706;
+            --light-accent: #fef3c7;
+            --bg-soft: #f8fafc;
+            --text-dark: #1e293b;
+            --text-muted: #475569;
+        }
+        body.theme-tech { --primary: #31105f; --secondary: #6d28d9; --accent: #06b6d4; --light-accent: #cffafe; }
+        body.theme-nature { --primary: #064e3b; --secondary: #059669; --accent: #d97706; --light-accent: #fef3c7; }
+        body.theme-royal { --primary: #7f1d1d; --secondary: #b91c1c; --accent: #ca8a04; --light-accent: #fef9c3; }
+        body.theme-sky { --primary: #0c4a6e; --secondary: #0284c7; --accent: #f59e0b; --light-accent: #e0f2fe; }
+        body.theme-rose { --primary: #831843; --secondary: #db2777; --accent: #f97316; --light-accent: #fce7f3; }
+        body.theme-sunrise { --primary: #9a3412; --secondary: #ea580c; --accent: #059669; --light-accent: #ffedd5; }
+        body.theme-graphite { --primary: #1f2937; --secondary: #0f766e; --accent: #fbbf24; --light-accent: #f1f5f9; }
+        body.theme-lagoon { --primary: #134e4a; --secondary: #0d9488; --accent: #f97316; --light-accent: #ccfbf1; }
+        body.theme-orchid { --primary: #6b2147; --secondary: #a21caf; --accent: #0ea5e9; --light-accent: #fce7f3; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        body { background: #e2e8f0; color: var(--text-dark); }
+
+        .control-panel { background: #0f172a; color: #fff; padding: 16px 3%; box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 1000; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+        .panel-header h1 { font-size: 1.15rem; color: #fbbf24; }
+        .panel-header .tip { font-size: 0.78rem; color: #cbd5e1; background: #1e293b; padding: 4px 10px; border-radius: 20px; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+        .form-group { display: flex; flex-direction: column; gap: 3px; }
+        .form-group label { font-size: 0.74rem; color: #94a3b8; font-weight: 600; }
+        .form-group input, .form-group select { padding: 7px 10px; border-radius: 6px; border: 1px solid #475569; background: #1e293b; color: #fff; font-size: 0.85rem; outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: #fbbf24; }
+
+        .action-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; justify-content: space-between; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+        .btn { padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
+        .btn-gold { background: #d97706; color: #fff; } .btn-gold:hover { background: #b45309; }
+        .btn-blue { background: #2563eb; color: #fff; } .btn-blue:hover { background: #1d4ed8; }
+        .btn-green { background: #059669; color: #fff; } .btn-green:hover { background: #047857; }
+        .btn-purple { background: #7c3aed; color: #fff; } .btn-purple:hover { background: #6d28d9; }
+        .blank-slide-controls { display: inline-flex; align-items: center; gap: 7px; color: #cbd5e1; font-size: 0.78rem; }
+        .blank-slide-controls input { width: 62px; height: 36px; padding: 5px 7px; border: 1px solid #475569; border-radius: 6px; background: #1e293b; color: #fff; font-size: 0.9rem; }
+        .blank-slide .slide-header h2 { flex: 1; min-height: 1.4em; }
+        .blank-slide .slide-body { display: block; padding: 22px; }
+        .blank-slide-writing-area { width: 100%; height: 100%; min-height: 100%; padding: 26px; border: 2px dashed var(--secondary); border-left: 7px solid var(--accent); border-radius: 8px; background: var(--light-accent); color: var(--text-dark); outline: none; }
+        .blank-slide-writing-area:empty::before { content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; }
+        .blank-slide-writing-area:focus { border-style: solid; outline: 2px solid var(--secondary); outline-offset: 2px; }
+        .page-count-control { display: inline-flex; align-items: center; gap: 7px; color: #cbd5e1; font-size: 0.78rem; font-weight: 600; }
+        .page-count-display { width: 68px; height: 36px; padding: 5px 7px; border: 1px solid #64748b; border-radius: 6px; background: #1e293b; color: #fbbf24; font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; text-align: center; }
+
+        .export-dialog { width: min(440px, calc(100vw - 32px)); border: 1px solid #cbd5e1; border-radius: 10px; padding: 22px; color: #1e293b; box-shadow: 0 20px 60px rgba(0,0,0,0.28); }
+        .export-dialog::backdrop { background: rgba(15,23,42,0.62); }
+        .export-dialog h2 { font-size: 1.2rem; margin-bottom: 8px; }
+        .export-dialog p { color: #475569; font-size: 0.9rem; line-height: 1.5; }
+        .export-options { display: grid; gap: 9px; margin: 18px 0; }
+        .export-option { width: 100%; justify-content: flex-start; background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; }
+        .export-option:hover { background: #e2e8f0; }
+        .export-cancel { float: right; background: #475569; color: #fff; }
+
+        .slides-container { padding: 25px 15px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+
+        /* Default Landscape 16:9 style */
+        .slide-page {
+            width: 100%; max-width: 1060px; height: 600px;
+            background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden; display: flex; flex-direction: column; position: relative;
+        }
+        body.orient-portrait .slide-page {
+            max-width: 700px; height: 920px;
+        }
+
+        .slide-cover { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: #fff; padding: 40px 50px; justify-content: space-between; position: relative; }
+        .cover-decor { position: absolute; right: -60px; top: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 22px solid rgba(255,255,255,0.05); pointer-events: none; }
+        .cover-top { display: flex; align-items: center; gap: 14px; z-index: 2; }
+        .inst-emblem { width: 58px; height: 58px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid var(--accent); flex-shrink: 0; }
+        .inst-title h3 { font-size: 1.3rem; color: #fde68a; line-height: 1.25; }
+        .inst-title p { font-size: 0.88rem; color: #e2e8f0; }
+        .cover-center { z-index: 2; margin: 12px 0; }
+        .topic-badge { display: inline-block; background: var(--accent); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; margin-bottom: 12px; }
+        .cover-center h1 { font-size: 2.15rem; line-height: 1.25; margin-bottom: 10px; }
+        .cover-center p { font-size: 1.05rem; color: #cbd5e1; max-width: 780px; }
+        .cover-footer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; background: rgba(0,0,0,0.25); padding: 14px 18px; border-radius: 10px; border-left: 5px solid var(--accent); z-index: 2; }
+        .meta-box small { display: block; font-size: 0.7rem; color: #cbd5e1; text-transform: uppercase; }
+        .meta-box strong { font-size: 0.9rem; color: #fff; }
+
+        .slide-header { background: var(--primary); color: #fff; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent); }
+        .slide-header h2 { font-size: 1.25rem; display: flex; align-items: center; gap: 8px; }
+        .slide-header .slide-tag { font-size: 0.78rem; background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 15px; }
+        .slide-body { flex: 1; padding: 22px 34px; background: var(--bg-soft); display: flex; flex-direction: column; justify-content: center; gap: 16px; overflow: hidden; }
+        .slide-footer { background: #fff; border-top: 1px solid #cbd5e1; padding: 8px 32px; display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); }
+
+        .topic-map { display: grid; grid-template-rows: auto 28px minmax(0, 1fr); align-items: center; width: 100%; height: 100%; min-height: 0; }
+        .topic-map-root { justify-self: center; max-width: 76%; padding: 12px 24px; border-radius: 8px; background: var(--primary); color: #fff; text-align: center; box-shadow: 0 4px 12px rgba(15,23,42,0.16); }
+        .topic-map-root small { display: block; color: #fde68a; font-size: 0.74rem; margin-bottom: 4px; }
+        .topic-map-root h3 { font-size: 1.08rem; line-height: 1.3; }
+        .topic-map-connector { justify-self: center; width: 3px; height: 100%; background: var(--secondary); }
+        .topic-map-branches { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-self: stretch; gap: 14px; padding-top: 18px; }
+        .topic-map-branches::before { content: ''; position: absolute; top: 0; left: 16.66%; right: 16.66%; border-top: 3px solid var(--secondary); }
+        .topic-map-node { position: relative; min-width: 0; padding: 18px; border-radius: 8px; background: #fff; box-shadow: 0 3px 12px rgba(15,23,42,0.08); border-top: 5px solid #0f766e; }
+        .topic-map-node:nth-child(2) { border-top-color: #b45309; }
+        .topic-map-node:nth-child(3) { border-top-color: #be123c; }
+        .topic-map-node::before { content: ''; position: absolute; top: -19px; left: 50%; height: 16px; border-left: 3px solid var(--secondary); }
+        .topic-map-node h3 { color: var(--primary); font-size: 1rem; line-height: 1.3; margin-bottom: 9px; }
+        .topic-map-node p { color: var(--text-dark); font-size: 0.88rem; line-height: 1.45; }
+        .topic-map-number { display: inline-flex; width: 25px; height: 25px; align-items: center; justify-content: center; margin-bottom: 8px; border-radius: 50%; background: var(--light-accent); color: var(--primary); font-size: 0.78rem; font-weight: 700; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        body.orient-portrait .grid-3 { grid-template-columns: 1fr; }
+        body.orient-portrait .grid-4 { grid-template-columns: 1fr; }
+        body.orient-portrait .cover-footer { grid-template-columns: 1fr 1fr; }
+        body.orient-portrait .topic-map { grid-template-rows: auto 20px minmax(0, 1fr); }
+        body.orient-portrait .topic-map-root { max-width: 94%; }
+        body.orient-portrait .topic-map-branches { grid-template-columns: 1fr; gap: 12px; padding: 0 0 0 22px; }
+        body.orient-portrait .topic-map-branches::before { top: 10px; bottom: 10px; left: 3px; right: auto; border-top: 0; border-left: 3px solid var(--secondary); }
+        body.orient-portrait .topic-map-node { padding: 14px; }
+        body.orient-portrait .topic-map-node::before { top: 50%; left: -21px; width: 18px; height: 0; border-top: 3px solid var(--secondary); border-left: 0; }
+
+        .content-card { background: #fff; padding: 16px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); border-top: 4px solid var(--secondary); }
+        .content-card.accent-border { border-top-color: var(--accent); }
+        .content-card h3 { color: var(--primary); font-size: 1.05rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .bullet-list li { position: relative; padding-left: 20px; font-size: 0.95rem; line-height: 1.4; color: var(--text-dark); }
+        .bullet-list li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 1.05rem; }
+        .highlight-banner { background: var(--light-accent); border-left: 5px solid var(--accent); padding: 12px 16px; border-radius: 6px; font-size: 0.95rem; color: #1e293b; font-weight: 500; }
+        .step-box { background: #fff; padding: 14px 16px; border-radius: 10px; border-left: 5px solid var(--secondary); box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 12px; align-items: flex-start; }
+        .step-num { background: var(--primary); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 0.85rem; }
+        .thank-you-box { text-align: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 28px; border-radius: 12px; }
+        .thank-you-box h2 { font-size: 2rem; color: #fde68a; margin-bottom: 6px; }
+
+        [contenteditable="true"]:hover { outline: 1px dashed var(--accent); cursor: text; }
+        [contenteditable="true"]:focus { outline: 2px solid var(--accent); background: rgba(255,255,255,0.05); }
+
+        /* Fullscreen play */
+        body.ppt-play { overflow: hidden; background: #000; }
+        body.ppt-play .control-panel { display: none; }
+        body.ppt-play .slides-container { padding: 0; height: 100vh; justify-content: center; }
+        body.ppt-play .slide-page { display: none; width: 100vw; height: 100vh; max-width: none; border-radius: 0; }
+        body.ppt-play .slide-page.active-slide { display: flex; }
+        .ppt-player-controls { display: none; position: fixed; bottom: 16px; right: 20px; background: rgba(15,23,42,0.9); padding: 8px 14px; border-radius: 40px; gap: 8px; align-items: center; color: #fff; z-index: 2000; border: 1px solid rgba(255,255,255,0.2); }
+        body.ppt-play .ppt-player-controls { display: flex; }
+        .ppt-player-controls button { background: #d97706; color: #fff; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+
+        /* Print */
+        @page { size: A4 landscape; margin: 0; }
+        body.orient-portrait @page { size: A4 portrait; margin: 0; }
+
+        @media print {
+            html, body { width: 297mm; height: auto; margin: 0 !important; padding: 0 !important; background: #fff !important; overflow: visible !important; }
+            body.orient-portrait { width: 210mm; }
+            .control-panel, .ppt-player-controls { display: none !important; }
+            .export-dialog { display: none !important; }
+            .slides-container { display: block !important; padding: 0 !important; margin: 0 !important; gap: 0 !important; }
+            .slide-page {
+                display: flex !important; width: 297mm !important; height: 209mm !important;
+                max-width: none !important; margin: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+                page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; overflow: hidden !important;
+            }
+            body.orient-portrait .slide-page { width: 210mm !important; height: 296mm !important; }
+            .slide-page:last-child { page-break-after: auto !important; break-after: auto !important; }
+        }
+
+        @media (max-width: 768px) {
+            .slide-page { height: auto; min-height: 420px; }
+            .grid-2, .grid-3, .grid-4, .cover-footer { grid-template-columns: 1fr; }
+        }
+
+        .lang-note { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="control-panel">
+    <div class="panel-header">
+        <h1 id="panelTitle">🎓 कोटद्वार PPT स्टूडियो (50+ विषय)</h1>
+        <span class="tip" id="panelTip">💡 किसी भी स्लाइड के टेक्स्ट पर क्लिक करके एडिट करें | प्रिंट में Landscape/Portrait चुनें</span>
+    </div>
+
+    <div class="form-grid">
+        <div class="form-group">
+            <label id="lblInstPreset">संस्थान चुनें (Kotdwar Presets)</label>
+            <select id="instPreset" onchange="applyPreset()">
+                <option value="pgc">डॉ. पीताम्बर दत्त बड़थ्वाल हिमालयन रा. स्ना. महाविद्यालय, कोटद्वार</option>
+                <option value="bbps">बाल भारती पब्लिक स्कूल, कोटद्वार</option>
+                <option value="dav">डी.ए.वी. पब्लिक स्कूल, कोटद्वार</option>
+                <option value="stj">सेंट जोसेफ कॉन्वेंट स्कूल, कोटद्वार</option>
+                <option value="kv">पीएम श्री केंद्रीय विद्यालय, कोटद्वार</option>
+                <option value="mvm">महर्षि विद्या मंदिर, कोटद्वार</option>
+                <option value="baluni">बालुनी पब्लिक स्कूल, कोटद्वार</option>
+                <option value="sgrr">श्री गुरु राम राय पब्लिक स्कूल, कोटद्वार</option>
+                <option value="navyug">नवयुग पब्लिक स्कूल, कोटद्वार</option>
+                <option value="scholars">स्कॉलर्स एकेडमी, कोटद्वार</option>
+                <option value="tcg">टी.सी.जी. पब्लिक स्कूल, कोटद्वार</option>
+                <option value="happy">हैप्पी होम स्कूल, कोटद्वार</option>
+                <option value="blooming">ब्लूमिंग वेल पब्लिक स्कूल, कोटद्वार</option>
+                <option value="hayde">हेयड हेरिटेज एकेडमी, कोटद्वार</option>
+                <option value="sidhbali">श्री सिद्धबली पब्लिक स्कूल, कोटद्वार</option>
+                <option value="unicus">यूनिकस एकेडमी, कोटद्वार</option>
+                <option value="bgu">भगवंत ग्लोबल यूनिवर्सिटी, कोटद्वार</option>
+                <option value="custom">अन्य (नीचे स्वयं नाम लिखें)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label id="lblInstName">स्कूल / कॉलेज का नाम</label>
+            <input type="text" id="inpInstName" value="डॉ. पीताम्बर दत्त बड़थ्वाल हिमालयन राजकीय स्नातकोत्तर महाविद्यालय, कोटद्वार" oninput="renderSlides()">
+        </div>
+
+        <div class="form-group">
+            <label id="lblInstSub">उप-शीर्षक / पता</label>
+            <input type="text" id="inpInstSub" value="पौड़ी गढ़वाल, उत्तराखंड | श्री देव सुमन उत्तराखंड विश्वविद्यालय से संबद्ध" oninput="renderSlides()">
+        </div>
+
+        <div class="form-group">
+            <label id="lblTopic">विषय चुनें (Topic)</label>
+            <select id="topicSelect" onchange="renderSlides()"></select>
+        </div>
+
+        <div class="form-group">
+            <label id="lblStudent">विद्यार्थी का नाम (Submitted By)</label>
+            <input type="text" id="inpStudent" value="अभिषेक रावत" oninput="renderSlides()">
+        </div>
+
+        <div class="form-group">
+            <label id="lblClass">कक्षा / सेमेस्टर और रोल नंबर</label>
+            <input type="text" id="inpClass" value="B.Sc. / Class 12 | Roll No: 24" oninput="renderSlides()">
+        </div>
+
+        <div class="form-group">
+            <label id="lblTeacher">शिक्षक / प्राध्यापक (Submitted To)</label>
+            <input type="text" id="inpTeacher" value="डॉ. / श्रीमती नेगी मैम" oninput="renderSlides()">
+        </div>
+
+        <div class="form-group">
+            <label id="lblTheme">थीम रंग (Color Theme)</label>
+            <select id="themeSelect" onchange="changeTheme()">
+                <option value="">रॉयल नेवी ब्लू (कॉलेज / आधिकारिक)</option>
+                <option value="theme-tech">टेक पर्पल एवं सियान (कंप्यूटर / IT)</option>
+                <option value="theme-nature">एमराल्ड ग्रीन (विज्ञान / पर्यावरण)</option>
+                <option value="theme-royal">क्रिमसन मैरून एवं गोल्ड (स्कूल विशेष)</option>
+                <option value="theme-sky">आकाशी नीला एवं केसरिया (शिक्षा)</option>
+                <option value="theme-rose">रोज़ पिंक एवं कोरल (क्रिएटिव)</option>
+                <option value="theme-sunrise">सनराइज़ कोरल एवं पन्ना (ऊर्जावान)</option>
+                <option value="theme-graphite">ग्रेफाइट एवं टील (मॉडर्न)</option>
+                <option value="theme-lagoon">लैगून टील एवं ऑरेंज (पर्यावरण)</option>
+                <option value="theme-orchid">बेरी एवं स्काई (आर्ट्स)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label id="lblOrient">ओरिएंटेशन (Orientation)</label>
+            <select id="orientSelect" onchange="changeOrientation()">
+                <option value="landscape">Landscape (लैंडस्केप) - 16:9 / A4 Landscape</option>
+                <option value="portrait">Portrait (पोर्ट्रेट) - A4 Portrait</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label id="lblLang">भाषा (Language)</label>
+            <select id="langSelect" onchange="changeLanguage()">
+                <option value="hi">हिंदी (Hindi) - पूरा प्रोजेक्ट</option>
+                <option value="en">English - Full Project</option>
+            </select>
+            <div class="lang-note" id="langNote">नोट: विषय सामग्री मुख्यतः हिंदी में है। English मोड में UI अंग्रेजी हो जाएगी। स्लाइड्स पर क्लिक करके व्यक्तिगत रूप से एडिट कर सकते हैं।</div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <div class="btn-group">
+            <button class="btn btn-gold" onclick="startPresentation()" id="btnPlay">📽️ फुल स्क्रीन PPT चलाएँ</button>
+            <button class="btn btn-green" onclick="printPPT()" id="btnPrint">🖨️ प्रिंट / PDF सेव करें</button>
+            <button class="btn btn-purple" onclick="addSlide()" id="btnAddSlide">➕ स्लाइड जोड़ें</button>
+            <label class="page-count-control" for="currentPageCount">
+                <span id="lblCurrentPageCount">कुल पेज</span>
+                <input class="page-count-display" id="currentPageCount" type="number" min="1" max="100" step="1" value="8" onchange="setPageCount()" aria-label="कुल पेज">
+            </label>
+            <div class="blank-slide-controls">
+                <label for="blankSlideCount" id="lblBlankSlideCount">खाली स्लाइडें</label>
+                <input id="blankSlideCount" type="number" min="1" max="100" value="1" inputmode="numeric">
+                <button class="btn btn-green" onclick="addBlankSlides()" id="btnAddBlankSlides">＋ जोड़ें</button>
+            </div>
+            <button class="btn btn-blue" onclick="openDownloadDialog()" id="btnDownloadDeck">📥 प्रस्तुति डाउनलोड</button>
+        </div>
+        <div style="font-size: 0.8rem; color: #cbd5e1;" id="slideCountInfo">
+            चयनित विषय में कुल <strong>8 स्लाइड्स</strong> तैयार हैं।
+        </div>
+    </div>
+</div>
+
+<dialog class="export-dialog" id="downloadDialog">
+    <h2 id="exportDialogTitle">डाउनलोड फ़ॉर्मेट चुनें</h2>
+    <p id="exportDialogHint">PowerPoint और Word डाउनलोड के लिए इंटरनेट कनेक्शन चाहिए। PDF ब्राउज़र के प्रिंट डायलॉग से सेव होगा।</p>
+    <div class="export-options">
+        <button class="btn export-option" onclick="downloadPresentation('pptx')" id="exportPptx">📊 PowerPoint (.pptx)</button>
+        <button class="btn export-option" onclick="downloadPresentation('docx')" id="exportDocx">📝 Word दस्तावेज़ (.docx)</button>
+        <button class="btn export-option" onclick="downloadPresentation('pdf')" id="exportPdf">📄 PDF (.pdf)</button>
+    </div>
+    <button class="btn export-cancel" onclick="document.getElementById('downloadDialog').close()" id="exportCancel">रद्द करें</button>
+</dialog>
+
+<div class="slides-container" id="slidesContainer"></div>
+
+<div class="ppt-player-controls">
+    <button onclick="moveSlide(-1)">⬅ Prev</button>
+    <span id="playCounter">1 / 8</span>
+    <button onclick="moveSlide(1)">Next ➡</button>
+    <button style="background:#dc2626;" onclick="stopPresentation()">✖ Close</button>
+</div>
+
+<script>
+// ===================== INSTITUTE PRESETS =====================
+const instPresets = {
+    pgc: {
+        name: "डॉ. पीताम्बर दत्त बड़थ्वाल हिमालयन राजकीय स्नातकोत्तर महाविद्यालय, कोटद्वार",
+        sub: "पौड़ी गढ़वाल, उत्तराखंड | श्री देव सुमन उत्तराखंड विश्वविद्यालय से संबद्ध",
+        nameEn: "Dr. Pitambar Datt Barthwal Himalayan Government Post Graduate College, Kotdwar",
+        subEn: "Pauri Garhwal, Uttarakhand | Affiliated to Sri Dev Suman Uttarakhand University"
+    },
+    bbps: {
+        name: "बाल भारती पब्लिक स्कूल, कोटद्वार",
+        sub: "मोटाढाक, कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड | CBSE संबद्ध",
+        nameEn: "Bal Bharati Public School, Kotdwar",
+        subEn: "Motadhak, Kotdwar (Pauri Garhwal), Uttarakhand | CBSE Affiliated"
+    },
+    dav: {
+        name: "डी.ए.वी. पब्लिक स्कूल, कोटद्वार",
+        sub: "बलभद्रपुर, कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड",
+        nameEn: "D.A.V. Public School, Kotdwar",
+        subEn: "Balbhadrapur, Kotdwar (Pauri Garhwal), Uttarakhand"
+    },
+    stj: {
+        name: "सेंट जोसेफ कॉन्वेंट सीनियर सेकेंडरी स्कूल, कोटद्वार",
+        sub: "कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड",
+        nameEn: "St. Joseph's Convent Senior Secondary School, Kotdwar",
+        subEn: "Kotdwar (Pauri Garhwal), Uttarakhand"
+    },
+    kv: {
+        name: "पीएम श्री केंद्रीय विद्यालय, कोटद्वार",
+        sub: "गढ़वाल, उत्तराखंड | शिक्षा मंत्रालय, भारत सरकार",
+        nameEn: "PM Shri Kendriya Vidyalaya, Kotdwar",
+        subEn: "Garhwal, Uttarakhand | Ministry of Education, Government of India"
+    },
+    mvm: {
+        name: "महर्षि विद्या मंदिर पब्लिक स्कूल, कोटद्वार",
+        sub: "कोटद्वार, उत्तराखंड",
+        nameEn: "Maharishi Vidya Mandir Public School, Kotdwar",
+        subEn: "Kotdwar, Uttarakhand"
+    },
+    baluni: {
+        name: "बालुनी पब्लिक स्कूल, कोटद्वार",
+        sub: "मोटाढाक / BEL रोड, कोटद्वार, उत्तराखंड | CBSE",
+        nameEn: "Baluni Public School, Kotdwar",
+        subEn: "Motadhak / BEL Road, Kotdwar, Uttarakhand | CBSE"
+    },
+    sgrr: {
+        name: "श्री गुरु राम राय पब्लिक स्कूल, कोटद्वार",
+        sub: "देवी रोड / पदामपुर, कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड",
+        nameEn: "Shri Guru Ram Rai Public School, Kotdwar",
+        subEn: "Devi Road / Padampur, Kotdwar (Pauri Garhwal), Uttarakhand"
+    },
+    navyug: {
+        name: "नवयुग पब्लिक स्कूल, कोटद्वार",
+        sub: "कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड | CBSE",
+        nameEn: "Navyug Public School, Kotdwar",
+        subEn: "Kotdwar (Pauri Garhwal), Uttarakhand | CBSE"
+    },
+    scholars: {
+        name: "स्कॉलर्स एकेडमी, कोटद्वार",
+        sub: "पदामपुर, कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड",
+        nameEn: "Scholars Academy, Kotdwar",
+        subEn: "Padampur, Kotdwar (Pauri Garhwal), Uttarakhand"
+    },
+    tcg: {
+        name: "टी.सी.जी. पब्लिक स्कूल, कोटद्वार",
+        sub: "सिंबल चौड़, कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड | CBSE",
+        nameEn: "TCG Public School, Kotdwar",
+        subEn: "Simbal Chaur, Kotdwar (Pauri Garhwal), Uttarakhand | CBSE"
+    },
+    happy: {
+        name: "हैप्पी होम स्कूल, कोटद्वार",
+        sub: "जॉनपुर, कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड",
+        nameEn: "Happy Home School, Kotdwar",
+        subEn: "Johnpur, Kotdwar (Pauri Garhwal), Uttarakhand"
+    },
+    blooming: {
+        name: "ब्लूमिंग वेल पब्लिक स्कूल, कोटद्वार",
+        sub: "गढ़ी घाट, कोटद्वार (पौड़ी गढ़वाल), उत्तराखंड",
+        nameEn: "Blooming Vale Public School, Kotdwar",
+        subEn: "Gari Ghat, Kotdwar (Pauri Garhwal), Uttarakhand"
+    },
+    hayde: {
+        name: "हेयड हेरिटेज एकेडमी, कोटद्वार",
+        sub: "गढ़ी घाट, सिद्धबली मार्ग, कोटद्वार, उत्तराखंड",
+        nameEn: "Hayde Heritage Academy, Kotdwar",
+        subEn: "Gadi Ghat, Sidhbali Marg, Kotdwar, Uttarakhand"
+    },
+    sidhbali: {
+        name: "श्री सिद्धबली पब्लिक स्कूल, कोटद्वार",
+        sub: "रेलवे स्टेशन के पास, कोटद्वार, उत्तराखंड",
+        nameEn: "Shree Sidhbali Public School, Kotdwar",
+        subEn: "Near Railway Station, Kotdwar, Uttarakhand"
+    },
+    unicus: {
+        name: "यूनिकस एकेडमी, कोटद्वार",
+        sub: "लछमपुर / हल्दूखाता, कण्वाघाटी, कोटद्वार, उत्तराखंड",
+        nameEn: "Unicus Academy, Kotdwar",
+        subEn: "Lachampur / Haldukhata, Kanvaghati, Kotdwar, Uttarakhand"
+    },
+    bgu: {
+        name: "भगवंत ग्लोबल यूनिवर्सिटी, कोटद्वार",
+        sub: "कोटद्वार, उत्तराखंड",
+        nameEn: "Bhagwant Global University, Kotdwar",
+        subEn: "Kotdwar, Uttarakhand"
+    }
+};
+
+// ===================== TOPICS DATABASE (Clean & Working) =====================
+const allTopics = [
+    {
+        cat: "कॉलेज विशेष", catEn: "College Special",
+        title: "डॉ. पीताम्बर दत्त बड़थ्वाल हिमालयन रा. स्ना. महाविद्यालय, कोटद्वार",
+        titleEn: "Dr. Pitambar Datt Barthwal Himalayan PG College, Kotdwar",
+        sub: "स्थापना, शैक्षणिक उपलब्धियाँ, NEP-2020 एवं छात्र सुविधाएँ (संपूर्ण परिचय)",
+        subEn: "Establishment, Academic Achievements, NEP-2020 and Student Facilities",
+        intro: [
+            "कोटद्वार स्थित यह महाविद्यालय गढ़वाल क्षेत्र के प्रमुख एवं प्रतिष्ठित उच्च शिक्षण संस्थानों में से एक है।",
+            "हिंदी के प्रथम डी.लिट्. डॉ. पीताम्बर दत्त बड़थ्वाल जी के नाम पर स्थापित यह संस्थान उच्च शिक्षा का प्रमुख केंद्र है।",
+            "यहाँ कला, विज्ञान, वाणिज्य एवं व्यावसायिक पाठ्यक्रमों (B.Ed., BBA आदि) की गुणवत्तापूर्ण शिक्षा दी जाती है।"
+        ],
+        introEn: [
+            "This college in Kotdwar is one of the premier higher education institutions of the Garhwal region.",
+            "Named after the first D.Litt. in Hindi, Dr. Pitambar Datt Barthwal, it is a major centre of higher learning.",
+            "It offers quality education in Arts, Science, Commerce and professional courses (B.Ed., BBA etc.)."
+        ],
+        fact: "यह महाविद्यालय श्री देव सुमन उत्तराखंड विश्वविद्यालय से संबद्ध है तथा NAAC मूल्यांकित संस्थान है।",
+        factEn: "The college is affiliated to Sri Dev Suman Uttarakhand University and is NAAC accredited.",
+        cards: [
+            { t: "प्रमुख संकाय", tEn: "Major Faculties", d: "कला (B.A./M.A.), विज्ञान (B.Sc./M.Sc.), वाणिज्य (B.Com/M.Com) एवं B.Ed.।", dEn: "Arts (B.A./M.A.), Science (B.Sc./M.Sc.), Commerce (B.Com/M.Com) and B.Ed." },
+            { t: "आधुनिक परिसर", tEn: "Modern Campus", d: "स्मार्ट क्लासरूम, विशाल केंद्रीय पुस्तकालय, विज्ञान प्रयोगशालाएँ और कंप्यूटर लैब।", dEn: "Smart classrooms, large central library, science labs and computer lab." },
+            { t: "सह-पाठ्यक्रम", tEn: "Co-curricular", d: "NCC, NSS, रोवर्स-रेंजर्स, नमामि गंगे एवं करियर काउंसलिंग सेल की सक्रिय इकाइयाँ।", dEn: "Active units of NCC, NSS, Rovers-Rangers, Namami Gange and Career Counselling Cell." }
+        ],
+        steps: [
+            "राष्ट्रीय शिक्षा नीति (NEP-2020) के अंतर्गत 4-वर्षीय स्नातक एवं कौशल विकास पाठ्यक्रम।",
+            "समर्थ पोर्टल (SAMARTH) द्वारा पारदर्शी ऑनलाइन प्रवेश एवं परीक्षा प्रणाली।",
+            "गौरा देवी कन्या धन, SC/ST/OBC एवं मेधावी छात्रवृत्ति योजनाओं का लाभ।",
+            "नियमित राष्ट्रीय सेमिनार, खेलकूद प्रतियोगिताएँ एवं देवभूमि उद्यमिता योजना कार्यशालाएँ।"
+        ],
+        stepsEn: [
+            "4-year undergraduate and skill development courses under NEP-2020.",
+            "Transparent online admission and examination through SAMARTH portal.",
+            "Benefit of Gaura Devi Kanya Dhan, SC/ST/OBC and merit scholarships.",
+            "Regular national seminars, sports events and entrepreneurship workshops."
+        ],
+        uses: [
+            "कोटद्वार, भाबर, लैंसडाउन एवं दुगड्डा क्षेत्र के हजारों विद्यार्थियों को उच्च शिक्षा।",
+            "प्रतियोगी परीक्षाओं (UPSC, UKPSC, NET) के लिए मार्गदर्शन एवं पुस्तकालय सुविधा।",
+            "शोध एवं स्थानीय हिमालयी संस्कृति के संरक्षण में अग्रणी भूमिका।",
+            "न्यूनतम सरकारी शुल्क में रोजगारपरक एवं संस्कारयुक्त शिक्षा की उपलब्धता।"
+        ],
+        usesEn: [
+            "Higher education to thousands of students from Kotdwar, Bhabar, Lansdowne and Dugadda regions.",
+            "Guidance and library facilities for competitive exams (UPSC, UKPSC, NET).",
+            "Leading role in research and preservation of local Himalayan culture.",
+            "Affordable, value-based and employment-oriented education."
+        ],
+        pros: ["अनुभवी एवं पीएच.डी. धारक प्राध्यापकों का मार्गदर्शन।", "विशाल खेल मैदान एवं हरा-भरा शैक्षणिक वातावरण।", "छात्र-छात्राओं के सर्वांगीण विकास हेतु विविध सांस्कृतिक मंच।"],
+        prosEn: ["Guidance by experienced and Ph.D. faculty.", "Large playground and green academic environment.", "Various cultural platforms for holistic development."],
+        challenges: ["डिजिटल संसाधनों एवं नए रोजगारपरक पाठ्यक्रमों का निरंतर विस्तार।", "शोध एवं उद्योग (Industry) के साथ और अधिक जुड़ाव की संभावनाएँ।"],
+        challengesEn: ["Continuous expansion of digital resources and job-oriented courses.", "Need for greater industry-academia linkage."],
+        conc: "डॉ. पीताम्बर दत्त बड़थ्वाल राजकीय महाविद्यालय, कोटद्वार देवभूमि उत्तराखंड के युवाओं के उज्ज्वल भविष्य की मजबूत नींव है।",
+        concEn: "Dr. Pitambar Datt Barthwal Government College, Kotdwar is a strong foundation for the bright future of the youth of Devbhoomi Uttarakhand."
+    },
+    {
+        cat: "उत्तराखंड विशेष", catEn: "Uttarakhand Special",
+        title: "उत्तराखंड की संस्कृति, लोक कला एवं पर्यटन",
+        titleEn: "Culture, Folk Art & Tourism of Uttarakhand",
+        sub: "गढ़वाल व कोटद्वार (कण्वाश्रम व सिद्धबली) की ऐतिहासिक एवं सांस्कृतिक विरासत",
+        subEn: "Historical and cultural heritage of Garhwal and Kotdwar (Kanvashram & Sidhbali)",
+        intro: [
+            "देवभूमि उत्तराखंड अपनी समृद्ध लोक संस्कृति, मंदिरों, हिमालयी सौंदर्य और अतिथि सत्कार के लिए विश्व प्रसिद्ध है।",
+            "कोटद्वार को 'गढ़वाल का प्रवेश द्वार' कहा जाता है, जहाँ प्रसिद्ध सिद्धबली मंदिर और ऐतिहासिक कण्वाश्रम स्थित हैं।",
+            "यहाँ के लोकगीत, लोकनृत्य (थड़िया, चौंफला, झोड़ा) और तीज-त्योहार समाज को एक सूत्र में बाँधते हैं।"
+        ],
+        introEn: [
+            "Devbhoomi Uttarakhand is world-famous for its rich folk culture, temples, Himalayan beauty and hospitality.",
+            "Kotdwar is called the 'Gateway of Garhwal', home to the famous Sidhbali Temple and historic Kanvashram.",
+            "Folk songs, dances (Thadya, Chaunfla, Jhora) and festivals bind the society together."
+        ],
+        fact: "कोटद्वार स्थित कण्वाश्रम को चक्रवर्ती सम्राट भरत की जन्मस्थली माना जाता है, जिनके नाम पर देश का नाम 'भारत' पड़ा।",
+        factEn: "Kanvashram in Kotdwar is believed to be the birthplace of Emperor Bharat, after whom the country is named 'Bharat'.",
+        cards: [
+            { t: "प्रमुख तीर्थ व पर्यटन", tEn: "Major Pilgrimage & Tourism", d: "श्री सिद्धबली धाम, कण्वाश्रम, लैंसडाउन, ताड़केश्वर महादेव एवं चारधाम यात्रा।", dEn: "Shri Sidhbali Dham, Kanvashram, Lansdowne, Tadkeshwar Mahadev and Char Dham Yatra." },
+            { t: "लोक कला एवं पर्व", tEn: "Folk Art & Festivals", d: "ऐपण कला, हरेला, फूलदेई, घी संक्रांति, ईगास-बग्वाल एवं नंदा राजजात।", dEn: "Aipan art, Harela, Phool Dei, Ghee Sankranti, Igasa-Bagwal and Nanda Raj Jaat." },
+            { t: "पारंपरिक व्यंजन", tEn: "Traditional Cuisine", d: "काफली, फाणू, झंगोरे की खीर, मंडुए की रोटी, अरसा और बाल मिठाई।", dEn: "Kafli, Phaanu, Jhangora kheer, Mandua roti, Arsa and Bal Mithai." }
+        ],
+        steps: ["इको-टूरिज्म और होम-स्टे योजना द्वारा स्थानीय युवाओं को स्वरोजगार।", "कण्वाश्रम और लैंसडाउन जैसे स्थलों का आधुनिक पर्यटन विकास।", "पहाड़ी उत्पादों (मिलेट्स/मोटा अनाज) और ऐपण कला की वैश्विक ब्रांडिंग।", "धार्मिक एवं साहसिक पर्यटन (रिवर राफ्टिंग, ट्रैकिंग) का संतुलित विस्तार।"],
+        stepsEn: ["Self-employment for local youth through eco-tourism and home-stay schemes.", "Modern tourism development of places like Kanvashram and Lansdowne.", "Global branding of hill products (millets) and Aipan art.", "Balanced expansion of religious and adventure tourism (rafting, trekking)."],
+        uses: ["राज्य की अर्थव्यवस्था एवं स्थानीय रोजगार में पर्यटन का बड़ा योगदान।", "पलायन रोकने और गाँवों को आत्मनिर्भर बनाने में सहायक।", "भारतीय संस्कृति एवं आध्यात्मिक परंपराओं का वैश्विक प्रचार।", "पर्यावरण एवं जैव-विविधता के संरक्षण के प्रति जागरूकता।"],
+        usesEn: ["Major contribution of tourism to the state economy and local employment.", "Helps check migration and make villages self-reliant.", "Global promotion of Indian culture and spiritual traditions.", "Awareness about environment and biodiversity conservation."],
+        pros: ["समृद्ध सांस्कृतिक धरोहर एवं शांत प्राकृतिक वातावरण।", "साल भर धार्मिक व साहसिक पर्यटकों का आवागमन।"],
+        prosEn: ["Rich cultural heritage and peaceful natural environment.", "Year-round flow of religious and adventure tourists."],
+        challenges: ["पहाड़ी क्षेत्रों में प्लास्टिक कचरा प्रबंधन एवं पर्यावरण सुरक्षा।", "आपदा प्रबंधन और सुरक्षित सड़क संपर्क सुनिश्चित करना।"],
+        challengesEn: ["Plastic waste management and environmental protection in hilly areas.", "Disaster management and ensuring safe road connectivity."],
+        conc: "उत्तराखंड की संस्कृति और पर्यटन को सहेजकर ही हम सतत विकास और 'आत्मनिर्भर पहाड़' का सपना साकार कर सकते हैं।",
+        concEn: "By preserving the culture and tourism of Uttarakhand, we can realise the dream of sustainable development and 'Aatmanirbhar Pahad'."
+    },
+    {
+        cat: "शिक्षा", catEn: "Education",
+        title: "राष्ट्रीय शिक्षा नीति (NEP-2020) एवं आधुनिक शिक्षा",
+        titleEn: "National Education Policy (NEP-2020) & Modern Education",
+        sub: "भारतीय शिक्षा प्रणाली में ऐतिहासिक सुधार और कौशल विकास का महत्व",
+        subEn: "Historic reforms in Indian education system and importance of skill development",
+        intro: [
+            "राष्ट्रीय शिक्षा नीति 2020 का उद्देश्य भारत को एक वैश्विक ज्ञान महाशक्ति (Global Knowledge Superpower) बनाना है।",
+            "इसमें रटने की प्रवृत्ति (Rote Learning) के बजाय तार्किक सोच, रचनात्मकता और व्यावहारिक ज्ञान पर जोर दिया गया है।",
+            "स्कूली शिक्षा में पुराने 10+2 ढाँचे के स्थान पर नया 5+3+3+4 पाठ्यक्रम ढाँचा लागू किया गया है।"
+        ],
+        introEn: [
+            "The aim of NEP 2020 is to make India a Global Knowledge Superpower.",
+            "It emphasises logical thinking, creativity and practical knowledge instead of rote learning.",
+            "The old 10+2 structure has been replaced by the new 5+3+3+4 curricular structure."
+        ],
+        fact: "उत्तराखंड देश के उन अग्रणी राज्यों में से एक है जिसने उच्च और स्कूली शिक्षा में NEP-2020 को सबसे पहले लागू किया।",
+        factEn: "Uttarakhand is among the pioneering states that implemented NEP-2020 early in both school and higher education.",
+        cards: [
+            { t: "5+3+3+4 मॉडल", tEn: "5+3+3+4 Model", d: "फाउंडेशनल, प्रिपरेटरी, मिडिल और सेकेंडरी स्तर में लचीला शिक्षण।", dEn: "Flexible learning at Foundational, Preparatory, Middle and Secondary stages." },
+            { t: "मल्टी-एंट्री / एग्जिट", tEn: "Multi-entry / Exit", d: "कॉलेज में 1 वर्ष पर सर्टिफिकेट, 2 पर डिप्लोमा और 3-4 वर्ष पर डिग्री।", dEn: "Certificate after 1 year, Diploma after 2 years and Degree after 3-4 years." },
+            { t: "कौशल व मातृभाषा", tEn: "Skills & Mother Tongue", d: "कक्षा 6 से वोकेशनल (कोडिंग, शिल्प) शिक्षा और मातृभाषा में अध्ययन।", dEn: "Vocational education (coding, crafts) from Class 6 and learning in mother tongue." }
+        ],
+        steps: ["Academic Bank of Credits (ABC) द्वारा छात्रों के क्रेडिट डिजिटल रूप से सुरक्षित रखना।", "कला, विज्ञान और वाणिज्य की कठोर सीमाओं को समाप्त कर मनपसंद विषय चुनने की आज़ादी।", "प्रत्येक स्कूल और कॉलेज में डिजिटल शिक्षा एवं ई-कंटेंट का समावेश।", "मूल्यांकन के लिए 360-डिग्री होलिस्टिक प्रोग्रेस कार्ड की व्यवस्था।"],
+        stepsEn: ["Digital storage of student credits through Academic Bank of Credits (ABC).", "Freedom to choose subjects by removing rigid boundaries of streams.", "Inclusion of digital education and e-content in every school and college.", "360-degree holistic progress card for assessment."],
+        uses: ["विद्यार्थियों को डिग्री के साथ-साथ रोजगारपरक कौशल (Skills) प्राप्त होना।", "बीच में पढ़ाई छूटने (Dropout) की दर को कम करना।", "शोध एवं नवाचार (Research & Innovation) को बढ़ावा देना।", "भारतीय ज्ञान परंपरा और आधुनिक तकनीक का संगम।"],
+        usesEn: ["Students get job-oriented skills along with degrees.", "Reduction in dropout rates.", "Promotion of research and innovation.", "Integration of Indian knowledge tradition with modern technology."],
+        pros: ["छात्र-केंद्रित और तनाव-मुक्त परीक्षा प्रणाली।", "वैश्विक मानकों के अनुरूप उच्च गुणवत्तापूर्ण शिक्षा।"],
+        prosEn: ["Student-centric and stress-free examination system.", "High quality education aligned with global standards."],
+        challenges: ["ग्रामीण एवं पर्वतीय विद्यालयों में डिजिटल संसाधनों और प्रशिक्षित शिक्षकों की उपलब्धता।", "नए पाठ्यक्रम के अनुसार बुनियादी ढाँचे का विकास।"],
+        challengesEn: ["Availability of digital resources and trained teachers in rural and hilly schools.", "Development of infrastructure according to the new curriculum."],
+        conc: "NEP-2020 भारत के युवाओं को केवल नौकरी खोजने वाला नहीं, बल्कि नौकरी देने वाला (उद्यमी) बनाने की दिशा में एक क्रांतिकारी कदम है।",
+        concEn: "NEP-2020 is a revolutionary step towards making to make the youth of India job-creators (entrepreneurs) rather than just job-seekers."
+    },
+    {
+        cat: "कंप्यूटर एवं IT", catEn: "Computer & IT",
+        title: "Computer Fundamentals & Generations (कंप्यूटर के मूल सिद्धांत)",
+        titleEn: "Computer Fundamentals & Generations",
+        sub: "कंप्यूटर का परिचय, कार्यप्रणाली, हार्डवेयर-सॉफ्टवेयर एवं पांच पीढ़ियाँ",
+        subEn: "Introduction to computer, working, hardware-software and five generations",
+        intro: [
+            "कंप्यूटर एक इलेक्ट्रॉनिक मशीन है जो उपयोगकर्ता से डेटा (Input) लेकर उसे प्रोसेस करता है और सटीक परिणाम (Output) देता है।",
+            "शब्द 'Computer' लैटिन शब्द 'Computare' से बना है, जिसका अर्थ गणना करना होता है।",
+            "आधुनिक युग में शिक्षा, बैंकिंग, चिकित्सा, रक्षा और मनोरंजन के हर क्षेत्र में कंप्यूटर अनिवार्य हो गया है।"
+        ],
+        introEn: [
+            "A computer is an electronic machine that takes data (Input) from the user, processes it and gives accurate results (Output).",
+            "The word 'Computer' comes from the Latin word 'Computare' meaning to calculate.",
+            "In the modern era, computers have become essential in education, banking, medicine, defence and entertainment."
+        ],
+        fact: "चार्ल्स बैबेज (Charles Babbage) को 'कंप्यूटर का जनक' (Father of Computer) कहा जाता है।",
+        factEn: "Charles Babbage is known as the 'Father of Computer'.",
+        cards: [
+            { t: "Input & Output", tEn: "Input & Output", d: "कीबोर्ड, माउस, स्कैनर (Input) तथा मॉनिटर, प्रिंटर, स्पीकर (Output) डिवाइस।", dEn: "Keyboard, mouse, scanner (Input) and monitor, printer, speaker (Output) devices." },
+            { t: "CPU (मस्तिष्क)", tEn: "CPU (Brain)", d: "ALU (गणना), CU (नियंत्रण) और Memory Unit से मिलकर बनता है।", dEn: "Consists of ALU (calculation), CU (control) and Memory Unit." },
+            { t: "कंप्यूटर की पीढ़ियाँ", tEn: "Computer Generations", d: "1st (Vacuum Tube), 2nd (Transistor), 3rd (IC), 4th (Microprocessor), 5th (AI)।", dEn: "1st (Vacuum Tube), 2nd (Transistor), 3rd (IC), 4th (Microprocessor), 5th (AI)." }
+        ],
+        steps: ["Input: कीबोर्ड या माउस की सहायता से डेटा और निर्देश कंप्यूटर में भेजना।", "Storage: डेटा को अस्थायी रूप से RAM या स्थायी रूप से Hard Disk/SSD में रखना।", "Processing: CPU द्वारा निर्देशों के अनुसार गणितीय व तार्किक गणना करना।", "Output: प्रोसेस किए गए डेटा को स्क्रीन या प्रिंटर पर सूचना के रूप में दिखाना।"],
+        stepsEn: ["Input: Sending data and instructions into the computer using keyboard or mouse.", "Storage: Keeping data temporarily in RAM or permanently on Hard Disk/SSD.", "Processing: Mathematical and logical calculations by CPU according to instructions.", "Output: Displaying processed data as information on screen or printer."],
+        uses: ["स्कूलों और कॉलेजों में ई-लर्निंग, स्मार्ट क्लास और ऑनलाइन परीक्षाओं में।", "बैंकिंग, रेलवे टिकट बुकिंग और ई-गवर्नेंस सेवाओं में।", "वैज्ञानिक अनुसंधान, मौसम पूर्वानुमान और अंतरिक्ष अभियानों में।", "व्यवसाय, डेटा विश्लेषण और डिजिटल संचार में।"],
+        usesEn: ["E-learning, smart classes and online exams in schools and colleges.", "Banking, railway ticket booking and e-governance services.", "Scientific research, weather forecasting and space missions.", "Business, data analysis and digital communication."],
+        pros: ["अत्यधिक गति (Speed) एवं 100% सटीकता (Accuracy)।", "विशाल डेटा संग्रहण क्षमता (Storage) एवं स्वचालन (Automation)।"],
+        prosEn: ["Very high speed and 100% accuracy.", "Huge data storage capacity and automation."],
+        challenges: ["कंप्यूटर वायरस, साइबर अपराध और डेटा चोरी का खतरा।", "अधिक उपयोग से स्वास्थ्य पर प्रभाव एवं ई-कचरा (E-Waste) की समस्या।"],
+        challengesEn: ["Threat of computer viruses, cybercrime and data theft.", "Health effects of excessive use and e-waste problem."],
+        conc: "कंप्यूटर आधुनिक सभ्यता की रीढ़ है; इसका सही और सुरक्षित ज्ञान हर विद्यार्थी के लिए अत्यंत आवश्यक है।",
+        concEn: "Computer is the backbone of modern civilisation; correct and safe knowledge of it is essential for every student."
+    },
+    {
+        cat: "कंप्यूटर एवं IT", catEn: "Computer & IT",
+        title: "Artificial Intelligence & Machine Learning (कृत्रिम बुद्धिमत्ता)",
+        titleEn: "Artificial Intelligence & Machine Learning",
+        sub: "मशीनों की सोचने-समझने की क्षमता, उपयोग और भविष्य की संभावनाएँ",
+        subEn: "Ability of machines to think and understand, uses and future possibilities",
+        intro: [
+            "Artificial Intelligence (AI) कंप्यूटर विज्ञान की वह शाखा है जो मशीनों को इंसानों की तरह सोचने, सीखने और निर्णय लेने में सक्षम बनाती है।",
+            "Machine Learning (ML) AI का ही एक हिस्सा है जिसमें कंप्यूटर पुराने डेटा से स्वयं सीखकर प्रदर्शन सुधारता है।",
+            "आज ChatGPT, Google Assistant, Alexa और सेल्फ-ड्राइविंग कारें AI के प्रमुख उदाहरण हैं।"
+        ],
+        introEn: [
+            "Artificial Intelligence (AI) is the branch of computer science that enables machines to think, learn and take decisions like humans.",
+            "Machine Learning (ML) is a part of AI in which computers improve performance by learning from past data.",
+            "Today ChatGPT, Google Assistant, Alexa and self-driving cars are major examples of AI."
+        ],
+        fact: "जॉन मैकार्थी (John McCarthy) को 'Artificial Intelligence का जनक' माना जाता है।",
+        factEn: "John McCarthy is regarded as the 'Father of Artificial Intelligence'.",
+        cards: [
+            { t: "Narrow AI (Weak)", tEn: "Narrow AI (Weak)", d: "किसी एक विशेष कार्य के लिए बनी AI, जैसे- Siri, चेहरा पहचानना, शतरंज खेलना।", dEn: "AI made for one specific task, e.g. Siri, face recognition, playing chess." },
+            { t: "General AI (Strong)", tEn: "General AI (Strong)", d: "इंसानी दिमाग की तरह हर प्रकार का बौद्धिक कार्य करने में सक्षम भविष्य की AI।", dEn: "Future AI capable of performing every type of intellectual task like the human brain." },
+            { t: "Generative AI", tEn: "Generative AI", d: "टेक्स्ट, चित्र, कोड और वीडियो बनाने वाली AI, जैसे- ChatGPT और Gemini।", dEn: "AI that creates text, images, code and videos, e.g. ChatGPT and Gemini." }
+        ],
+        steps: ["Data Collection: बड़ी मात्रा में सही और व्यवस्थित डेटा एकत्रित करना।", "Model Training: एल्गोरिदम की मदद से कंप्यूटर को डेटा के पैटर्न सिखाना।", "Testing & Validation: नए डेटा पर AI मॉडल की सटीकता की जाँच करना।", "Deployment: वास्तविक दुनिया के ऐप्स, रोबोट और वेबसाइट्स में AI को लागू करना।"],
+        stepsEn: ["Data Collection: Collecting large amounts of correct and organised data.", "Model Training: Teaching the computer patterns in data with the help of algorithms.", "Testing & Validation: Checking the accuracy of the AI model on new data.", "Deployment: Implementing AI in real-world apps, robots and websites."],
+        uses: ["स्वास्थ्य क्षेत्र में रोगों (कैंसर, एक्स-रे) की त्वरित पहचान एवं रोबोटिक सर्जरी।", "शिक्षा में पर्सनलाइज्ड ट्यूटर, भाषा अनुवाद और स्मार्ट नोट्स बनाने में।", "कृषि में मौसम, मिट्टी और फसल की बीमारी की सटीक जानकारी देने में।", "बैंकिंग में धोखाधड़ी (Fraud Detection) रोकने और ग्राहक सेवा (Chatbots) में।"],
+        usesEn: ["Quick detection of diseases (cancer, X-ray) and robotic surgery in healthcare.", "Personalised tutors, language translation and smart notes in education.", "Accurate information about weather, soil and crop diseases in agriculture.", "Fraud detection and customer service (chatbots) in banking."],
+        pros: ["24×7 बिना थके कार्य करने की क्षमता और मानवीय त्रुटियों में कमी।", "जटिल डेटा का सेकंडों में विश्लेषण और खतरनाक कार्यों में सुरक्षा।"],
+        prosEn: ["Ability to work 24×7 without fatigue and reduction in human errors.", "Analysis of complex data in seconds and safety in dangerous tasks."],
+        challenges: ["नौकरियों के स्वरूप में बदलाव और डेटा प्राइवेसी की चिंता।", "डीपफेक (Deepfake) और गलत सूचनाओं के दुरुपयोग का खतरा।"],
+        challengesEn: ["Change in the nature of jobs and concern about data privacy.", "Threat of deepfake and misuse of false information."],
+        conc: "AI मानवता के लिए एक शक्तिशाली उपकरण है; इसका नैतिक और जिम्मेदारीपूर्ण उपयोग हमारे भविष्य को बेहतर बना सकता है।",
+        concEn: "AI is a powerful tool for humanity; its ethical and responsible use can make our future better."
+    },
+    {
+        cat: "कंप्यूटर एवं IT", catEn: "Computer & IT",
+        title: "Cyber Security & Ethical Hacking (साइबर सुरक्षा)",
+        titleEn: "Cyber Security & Ethical Hacking",
+        sub: "डिजिटल दुनिया में डेटा की सुरक्षा, साइबर अपराध एवं बचाव के उपाय",
+        subEn: "Data security in digital world, cyber crimes and protective measures",
+        intro: [
+            "Cyber Security का अर्थ कंप्यूटर, सर्वर, मोबाइल और नेटवर्क को डिजिटल हमलों, वायरस और डेटा चोरी से सुरक्षित रखना है।",
+            "आज के डिजिटल दौर में ऑनलाइन बैंकिंग और सोशल मीडिया के बढ़ते उपयोग के साथ साइबर अपराध भी तेजी से बढ़े हैं।",
+            "Ethical Hacking का उपयोग सिस्टम की कमियों को ढूँढकर उन्हें अपराधियों से पहले सुरक्षित करने के लिए किया जाता है।"
+        ],
+        introEn: [
+            "Cyber Security means protecting computers, servers, mobiles and networks from digital attacks, viruses and data theft.",
+            "With the increasing use of online banking and social media, cyber crimes have also increased rapidly.",
+            "Ethical Hacking is used to find system weaknesses and secure them before criminals do."
+        ],
+        fact: "भारत सरकार ने साइबर अपराध की शिकायत दर्ज करने के लिए हेल्पलाइन नंबर '1930' और cybercrime.gov.in पोर्टल शुरू किया है।",
+        factEn: "The Government of India has launched helpline number '1930' and the portal cybercrime.gov.in for reporting cyber crimes.",
+        cards: [
+            { t: "Phishing (फ़िशिंग)", tEn: "Phishing", d: "फर्जी ईमेल, लिंक या कॉल के माध्यम से पासवर्ड और बैंक OTP चुराना।", dEn: "Stealing passwords and bank OTP through fake emails, links or calls." },
+            { t: "Malware व Ransomware", tEn: "Malware & Ransomware", d: "हानिकारक वायरस जो डेटा को नुकसान पहुँचाते हैं या लॉक कर फिरौती मांगते हैं।", dEn: "Harmful viruses that damage data or lock it and demand ransom." },
+            { t: "सुरक्षा कवच", tEn: "Security Shield", d: "मजबूत पासवर्ड, Antivirus, Firewall और Two-Factor Authentication (2FA)।", dEn: "Strong passwords, Antivirus, Firewall and Two-Factor Authentication (2FA)." }
+        ],
+        steps: ["Prevention: मजबूत पासवर्ड (अक्षर, संख्या, चिह्न) और अपडेटेड सॉफ्टवेयर का उपयोग।", "Detection: नेटवर्क ट्रैफिक की निगरानी कर संदिग्ध गतिविधि की पहचान करना।", "Encryption: डेटा को गुप्त कोड में बदलना ताकि हैकर उसे पढ़ न सकें।", "Response & Recovery: हमले की स्थिति में सिस्टम को अलग कर बैकअप से डेटा वापस पाना।"],
+        stepsEn: ["Prevention: Use of strong passwords (letters, numbers, symbols) and updated software.", "Detection: Monitoring network traffic to identify suspicious activity.", "Encryption: Converting data into secret code so that hackers cannot read it.", "Response & Recovery: Isolating the system and recovering data from backup in case of attack."],
+        uses: ["बैंकिंग, UPI और ई-कॉमर्स लेनदेन को पूरी तरह सुरक्षित रखना।", "सरकारी वेबसाइट्स, रक्षा प्रणाली और आधार डेटा की सुरक्षा करना।", "व्यक्तिगत फोटो, ईमेल और सोशल मीडिया अकाउंट्स को हैक होने से बचाना।", "कॉर्पोरेट कंपनियों के गोपनीय डेटा और बौद्धिक संपदा की रक्षा।"],
+        usesEn: ["Keeping banking, UPI and e-commerce transactions completely secure.", "Protecting government websites, defence systems and Aadhaar data.", "Protecting personal photos, emails and social media accounts from hacking.", "Protecting confidential data and intellectual property of companies."],
+        pros: ["डिजिटल लेनदेन में विश्वास बढ़ता है और आर्थिक नुकसान से बचाव होता है।", "साइबर सुरक्षा विशेषज्ञों के लिए करियर के लाखों नए अवसर।"],
+        prosEn: ["Increases trust in digital transactions and protects from financial loss.", "Millions of new career opportunities for cyber security experts."],
+        challenges: ["नए और जटिल साइबर हमलों का लगातार विकसित होना।", "आम नागरिकों में डिजिटल जागरूकता और सावधानी की कमी।"],
+        challengesEn: ["Continuous development of new and complex cyber attacks.", "Lack of digital awareness and caution among common citizens."],
+        conc: "सतर्कता ही सबसे बड़ी सुरक्षा है—अजनबी लिंक पर क्लिक न करें, OTP साझा न करें और साइबर स्वच्छता अपनाएँ।",
+        concEn: "Caution is the greatest security—do not click on unknown links, do not share OTP and adopt cyber hygiene."
+    },
+    {
+        cat: "कंप्यूटर एवं IT", catEn: "Computer & IT",
+        title: "Internet & Computer Networking (इंटरनेट एवं नेटवर्किंग)",
+        titleEn: "Internet & Computer Networking",
+        sub: "LAN, MAN, WAN, नेटवर्क टोपोलॉजी एवं इंटरनेट प्रोटोकॉल की संपूर्ण जानकारी",
+        subEn: "Complete information about LAN, MAN, WAN, network topology and internet protocols",
+        intro: [
+            "जब दो या दो से अधिक कंप्यूटर डेटा और संसाधनों को साझा करने के लिए आपस में जुड़ते हैं, तो उसे Computer Network कहते हैं।",
+            "Internet दुनिया भर के करोड़ों नेटवर्क का एक विशाल जाल (Network of Networks) है।",
+            "नेटवर्किंग के कारण ही आज ईमेल, वीडियो कॉल, ऑनलाइन क्लास और क्लाउड सेवाएँ संभव हो पाई हैं।"
+        ],
+        introEn: [
+            "When two or more computers are connected to share data and resources, it is called a Computer Network.",
+            "The Internet is a huge network of networks of millions of computers around the world.",
+            "Because of networking, email, video calls, online classes and cloud services have become possible today."
+        ],
+        fact: "इंटरनेट की शुरुआत 1969 में अमेरिका में ARPANET प्रोजेक्ट से हुई थी; टिम बर्नर्स-ली ने WWW (World Wide Web) का आविष्कार किया।",
+        factEn: "The Internet began in 1969 with the ARPANET project in the USA; Tim Berners-Lee invented the WWW (World Wide Web).",
+        cards: [
+            { t: "LAN, MAN, WAN", tEn: "LAN, MAN, WAN", d: "LAN (ऑफिस/स्कूल), MAN (पूरा शहर), WAN (पूरा देश/दुनिया - इंटरनेट)।", dEn: "LAN (office/school), MAN (whole city), WAN (whole country/world - Internet)." },
+            { t: "नेटवर्क उपकरण", tEn: "Network Devices", d: "Router, Switch, Hub, Modem और ऑप्टिकल फाइबर केबल।", dEn: "Router, Switch, Hub, Modem and optical fibre cable." },
+            { t: "नेटवर्क टोपोलॉजी", tEn: "Network Topology", d: "Bus, Star, Ring, Mesh और Tree संरचना द्वारा कंप्यूटरों का जुड़ाव।", dEn: "Connection of computers through Bus, Star, Ring, Mesh and Tree structures." }
+        ],
+        steps: ["Addressing: प्रत्येक डिवाइस को एक विशिष्ट IP Address और MAC Address प्राप्त होना।", "Packet Switching: डेटा को छोटे-छोटे पैकेट्स में तोड़कर भेजना।", "Routing: राउटर द्वारा डेटा पैकेट्स को सबसे तेज और सुरक्षित मार्ग से पहुँचाना।", "Protocols: HTTP/HTTPS, TCP/IP और FTP नियमों के तहत सुरक्षित डेटा आदान-प्रदान।"],
+        stepsEn: ["Addressing: Each device gets a unique IP Address and MAC Address.", "Packet Switching: Breaking data into small packets and sending them.", "Routing: Router delivers data packets through the fastest and safest path.", "Protocols: Secure data exchange under rules of HTTP/HTTPS, TCP/IP and FTP."],
+        uses: ["फाइलें, प्रिंटर और इंटरनेट कनेक्शन एक साथ कई कंप्यूटरों पर साझा करना।", "ऑनलाइन शिक्षा, वीडियो कॉन्फ्रेंसिंग और दूरस्थ कार्य (Work From Home)।", "ई-मेल, सोशल मीडिया और त्वरित संदेश (WhatsApp/Telegram) सेवाएँ।", "रेलवे, हवाई अड्डे और अस्पतालों के केंद्रीय डेटाबेस का संचालन।"],
+        usesEn: ["Sharing files, printers and internet connection among multiple computers.", "Online education, video conferencing and work from home.", "Email, social media and instant messaging (WhatsApp/Telegram) services.", "Operation of central databases of railways, airports and hospitals."],
+        pros: ["तेज संचार, संसाधनों की बचत और वैश्विक स्तर पर जानकारी तक आसान पहुँच।"],
+        prosEn: ["Fast communication, saving of resources and easy access to information at global level."],
+        challenges: ["नेटवर्क डाउन होने पर कार्य रुकना तथा डेटा सुरक्षा (हैकर्स) का जोखिम।"],
+        challengesEn: ["Work stops when network is down and risk of data security (hackers)."],
+        conc: "इंटरनेट और नेटवर्किंग ने पूरी दुनिया को एक 'ग्लोबल विलेज' में बदल दिया है, जहाँ जानकारी सेकंडों में साझा होती है।",
+        concEn: "Internet and networking have turned the whole world into a 'Global Village' where information is shared in seconds."
+    },
+    {
+        cat: "कंप्यूटर एवं IT", catEn: "Computer & IT",
+        title: "Python Programming Language (पायथन प्रोग्रामिंग)",
+        titleEn: "Python Programming Language",
+        sub: "सरल, शक्तिशाली और सर्वाधिक लोकप्रिय आधुनिक प्रोग्रामिंग भाषा",
+        subEn: "Simple, powerful and the most popular modern programming language",
+        intro: [
+            "Python एक उच्च-स्तरीय (High-Level), इंटरप्रेटेड और सामान्य-उद्देश्य वाली प्रोग्रामिंग भाषा है जिसे 1991 में गुइडो वैन रोसुम ने बनाया था।",
+            "इसका सिंटैक्स अंग्रेजी भाषा की तरह बेहद सरल और पढ़ने में आसान है, इसलिए शुरुआती छात्रों के लिए यह सबसे उत्तम है।",
+            "आज AI, Data Science, Web Development और Automation में पायथन का सर्वाधिक उपयोग होता है।"
+        ],
+        introEn: [
+            "Python is a high-level, interpreted and general-purpose programming language created by Guido van Rossum in 1991.",
+            "Its syntax is very simple and easy to read like English, so it is the best for beginners.",
+            "Today Python is most widely used in AI, Data Science, Web Development and Automation."
+        ],
+        fact: "CBSE कक्षा 11-12 और अधिकांश विश्वविद्यालयों के कंप्यूटर पाठ्यक्रम में Python प्रमुख प्रोग्रामिंग भाषा के रूप में पढ़ाई जाती है।",
+        factEn: "Python is taught as the main programming language in CBSE Class 11-12 and most university computer courses.",
+        cards: [
+            { t: "सरल सिंटैक्स", tEn: "Simple Syntax", d: "अन्य भाषाओं (C++/Java) की तुलना में कम लाइनों में कोड लिखने की सुविधा।", dEn: "Facility to write code in fewer lines compared to other languages (C++/Java)." },
+            { t: "विशाल लाइब्रेरीज़", tEn: "Huge Libraries", d: "NumPy, Pandas (डेटा), Django/Flask (वेब), TensorFlow (AI)।", dEn: "NumPy, Pandas (data), Django/Flask (web), TensorFlow (AI)." },
+            { t: "डेटा टाइप्स", tEn: "Data Types", d: "List, Tuple, Dictionary, Set, String और Integer का आसान उपयोग।", dEn: "Easy use of List, Tuple, Dictionary, Set, String and Integer." }
+        ],
+        steps: ["Problem Understanding: समस्या को समझकर एल्गोरिदम और फ्लोचार्ट बनाना।", "Coding: Python IDLE या VS Code में इंडेंटेशन (Indentation) के साथ कोड लिखना।", "Execution: Python Interpreter द्वारा कोड को लाइन-दर-लाइन चलाना।", "Debugging & Testing: त्रुटियों (Errors) को ठीक कर अंतिम प्रोग्राम तैयार करना।"],
+        stepsEn: ["Problem Understanding: Understanding the problem and making algorithm and flowchart.", "Coding: Writing code with indentation in Python IDLE or VS Code.", "Execution: Running the code line-by-line by Python Interpreter.", "Debugging & Testing: Fixing errors and preparing the final program."],
+        uses: ["आर्टिफिशियल इंटेलिजेंस (AI) और मशीन लर्निंग मॉडल बनाने में।", "YouTube, Instagram और Spotify जैसी बड़ी वेबसाइट्स के बैकएंड में।", "डेटा विश्लेषण (Data Analytics) और वैज्ञानिक गणनाओं में।", "दैनिक कंप्यूटर कार्यों को स्वचालित (Automation) करने में।"],
+        usesEn: ["Building Artificial Intelligence (AI) and Machine Learning models.", "Backend of large websites like YouTube, Instagram and Spotify.", "Data Analytics and scientific calculations.", "Automating daily computer tasks."],
+        pros: ["सीखने में बेहद आसान, Open-Source और क्रॉस-प्लेटफॉर्म (Windows/Mac/Linux पर चलता है)।"],
+        prosEn: ["Very easy to learn, Open-Source and cross-platform (runs on Windows/Mac/Linux)."],
+        challenges: ["C/C++ की तुलना में गति थोड़ी धीमी और मोबाइल ऐप विकास में सीमित उपयोग।"],
+        challengesEn: ["Slightly slower speed compared to C/C++ and limited use in mobile app development."],
+        conc: "Python सीखना आज के डिजिटल और AI युग में करियर निर्माण की सबसे स्मार्ट शुरुआत है।",
+        concEn: "Learning Python is the smartest start for career building in today's digital and AI era."
+    },
+    {
+        cat: "विज्ञान", catEn: "Science",
+        title: "Photosynthesis & Plant Nutrition (प्रकाश संश्लेषण)",
+        titleEn: "Photosynthesis & Plant Nutrition",
+        sub: "हरे पौधों द्वारा भोजन निर्माण की जैव-रासायनिक प्रक्रिया और महत्व",
+        subEn: "Bio-chemical process of food preparation by green plants and its importance",
+        intro: [
+            "प्रकाश संश्लेषण (Photosynthesis) वह जैविक प्रक्रिया है जिसके द्वारा हरे पौधे सूर्य के प्रकाश की उपस्थिति में अपना भोजन स्वयं बनाते हैं।",
+            "इस प्रक्रिया में पौधे हवा से कार्बन डाइऑक्साइड (CO₂) और जड़ों से पानी (H₂O) लेकर ग्लूकोज और ऑक्सीजन (O₂) बनाते हैं।",
+            "पृथ्वी पर समस्त जीवन (मनुष्य व जीव-जंतु) प्रत्यक्ष या अप्रत्यक्ष रूप से इसी प्रक्रिया पर निर्भर है।"
+        ],
+        introEn: [
+            "Photosynthesis is the biological process by which green plants make their own food in the presence of sunlight.",
+            "In this process plants take carbon dioxide (CO₂) from air and water (H₂O) from roots to make glucose and oxygen (O₂).",
+            "All life on Earth (humans and animals) depends directly or indirectly on this process."
+        ],
+        fact: "समीकरण: 6CO₂ + 6H₂O + सूर्य का प्रकाश (क्लोरोफिल की उपस्थिति में) ➔ C₆H₁₂O₆ (ग्लूकोज) + 6O₂ (ऑक्सीजन)।",
+        factEn: "Equation: 6CO₂ + 6H₂O + Sunlight (in presence of chlorophyll) ➔ C₆H₁₂O₆ (Glucose) + 6O₂ (Oxygen).",
+        cards: [
+            { t: "क्लोरोफिल (पर्णहरित)", tEn: "Chlorophyll", d: "पत्तियों के क्लोरोप्लास्ट में पाया जाने वाला हरा वर्णक जो सौर ऊर्जा सोखता है।", dEn: "Green pigment found in chloroplasts of leaves that absorbs solar energy." },
+            { t: "रंध्र (Stomata)", tEn: "Stomata", d: "पत्तियों की सतह पर सूक्ष्म छिद्र, जिनसे CO₂ अंदर आती है और O₂ बाहर निकलती है।", dEn: "Tiny pores on the surface of leaves through which CO₂ enters and O₂ exits." },
+            { t: "प्रकाश व अप्रकाश अभिक्रिया", tEn: "Light & Dark Reaction", d: "Light Reaction (थायलाकॉइड में) और Dark Reaction / Calvin Cycle (स्ट्रोमा में)।", dEn: "Light Reaction (in thylakoid) and Dark Reaction / Calvin Cycle (in stroma)." }
+        ],
+        steps: ["अवशोषण: जड़ों द्वारा जल व खनिज तथा रंध्रों द्वारा CO₂ को ग्रहण करना।", "ऊर्जा रूपांतरण: क्लोरोफिल द्वारा सूर्य की प्रकाश ऊर्जा को रासायनिक ऊर्जा (ATP/NADPH) में बदलना।", "जल का अपघटन: पानी के अणु टूटकर ऑक्सीजन गैस को वातावरण में मुक्त करते हैं।", "कार्बोहाइड्रेट निर्माण: CO₂ के अपचयन से ग्लूकोज (भोजन) का संश्लेषण होना।"],
+        stepsEn: ["Absorption: Taking water & minerals by roots and CO₂ by stomata.", "Energy conversion: Chlorophyll converts light energy of sun into chemical energy (ATP/NADPH).", "Splitting of water: Water molecules break and release oxygen gas into the atmosphere.", "Carbohydrate formation: Synthesis of glucose (food) by reduction of CO₂."],
+        uses: ["वायुमंडल में ऑक्सीजन और कार्बन डाइऑक्साइड का संतुलन बनाए रखना।", "समस्त खाद्य श्रृंखला (Food Chain) के लिए प्राथमिक ऊर्जा एवं भोजन प्रदान करना।", "ग्लोबल वार्मिंग को कम करने के लिए अतिरिक्त CO₂ को अवशोषित करना।"],
+        usesEn: ["Maintaining balance of oxygen and carbon dioxide in the atmosphere.", "Providing primary energy and food for the entire food chain.", "Absorbing extra CO₂ to reduce global warming."],
+        pros: ["पृथ्वी पर जीवन का मुख्य आधार तथा ईंधन, लकड़ी और औषधियों की उत्पत्ति।"],
+        prosEn: ["Main basis of life on Earth and source of fuel, wood and medicines."],
+        challenges: ["वनों की कटाई और बढ़ते वायु प्रदूषण से पौधों की प्रकाश संश्लेषण क्षमता प्रभावित होना।"],
+        challengesEn: ["Deforestation and increasing air pollution affect the photosynthetic capacity of plants."],
+        conc: "प्रकाश संश्लेषण प्रकृति का सबसे बड़ा चमत्कार है; इसलिए अधिक से अधिक पेड़ लगाना हमारे अस्तित्व के लिए आवश्यक है।",
+        concEn: "Photosynthesis is the greatest miracle of nature; therefore planting more and more trees is essential for our existence."
+    },
+    {
+        cat: "समाज / नैतिक शिक्षा", catEn: "Society / Value Education",
+        title: "Swachh Bharat & Civic Sense (स्वच्छ भारत एवं नागरिक बोध)",
+        titleEn: "Swachh Bharat & Civic Sense",
+        sub: "स्वच्छता ही सेवा, ठोस कचरा प्रबंधन, सार्वजनिक अनुशासन और स्वच्छ कोटद्वार",
+        subEn: "Cleanliness is service, solid waste management, public discipline and clean Kotdwar",
+        intro: [
+            "स्वच्छ भारत अभियान महात्मा गांधी के स्वच्छ और स्वस्थ भारत के सपने को साकार करने हेतु 2 अक्टूबर 2014 को शुरू किया गया था।",
+            "Civic Sense (नागरिक बोध) का अर्थ है सार्वजनिक स्थानों पर स्वच्छता, यातायात नियमों और दूसरों की सुविधा का सम्मान करना।",
+            "कोई भी शहर या देश केवल सफाई कर्मियों से नहीं, बल्कि वहाँ के नागरिकों के अनुशासन से स्वच्छ बनता है।"
+        ],
+        introEn: [
+            "The Swachh Bharat Abhiyan was launched on 2 October 2014 to realise Mahatma Gandhi's dream of a clean and healthy India.",
+            "Civic Sense means respecting cleanliness, traffic rules and convenience of others in public places.",
+            "Any city or country becomes clean not only by sanitation workers but by the discipline of its citizens."
+        ],
+        fact: "इंदौर लगातार भारत के सबसे स्वच्छ शहर के रूप में मिसाल बना है क्योंकि वहाँ के नागरिकों ने कचरा पृथक्करण को आदत बना लिया है।",
+        factEn: "Indore has continuously set an example as India's cleanest city because its citizens have made waste segregation a habit.",
+        cards: [
+            { t: "हरा व नीला कूड़ेदान", tEn: "Green & Blue Dustbin", d: "हरा डिब्बा = गीला/जैविक कचरा (सब्जी, फल); नीला डिब्बा = सूखा कचरा (प्लास्टिक, कागज)।", dEn: "Green bin = wet/organic waste (vegetables, fruits); Blue bin = dry waste (plastic, paper)." },
+            { t: "ODF व प्लास्टिक मुक्ति", tEn: "ODF & Plastic Free", d: "खुले में शौच से मुक्ति और सिंगल-यूज प्लास्टिक थैलियों की जगह कपड़े के थैले का प्रयोग।", dEn: "Freedom from open defecation and use of cloth bags instead of single-use plastic bags." },
+            { t: "सार्वजनिक अनुशासन", tEn: "Public Discipline", d: "सड़क पर न थूकना, कतार (Queue) का पालन करना और ट्रैफिक हेलमेट/सीट बेल्ट पहनना।", dEn: "Not spitting on roads, following queue and wearing traffic helmet/seat belt." }
+        ],
+        steps: ["शुरुआत स्वयं से: कचरा हमेशा डस्टबिन में डालें और अपने स्कूल/कॉलेज परिसर को साफ रखें।", "खाद निर्माण: घरों के गीले कचरे से कंपोस्ट खाद बनाकर गमलों व खेतों में उपयोग।", "नदी स्वच्छता: खोह, मालन और गंगा जैसी पवित्र नदियों में पूजा सामग्री या प्लास्टिक न बहाना।", "जागरूकता: NSS/NCC के माध्यम से मोहल्लों और पर्यटन स्थलों पर स्वच्छता अभियान।"],
+        stepsEn: ["Start with yourself: Always put waste in the dustbin and keep your school/college campus clean.", "Compost making: Make compost from wet waste of homes and use in pots and fields.", "River cleanliness: Do not throw worship material or plastic in sacred rivers like Khoh, Malan and Ganga.", "Awareness: Cleanliness campaigns in localities and tourist places through NSS/NCC."],
+        uses: ["डेंगू, मलेरिया, हैजा और डायरिया जैसी गंदगी से होने वाली बीमारियों में भारी कमी।", "स्वच्छ शहर होने से पर्यटन (उत्तराखंड टूरिज्म) बढ़ता है और देश की छवि सुधरती है।"],
+        usesEn: ["Huge reduction in diseases caused by dirt such as dengue, malaria, cholera and diarrhoea.", "Clean city increases tourism (Uttarakhand Tourism) and improves the image of the country."],
+        pros: ["स्वस्थ जीवन, स्वास्थ्य खर्च में बचत और सुंदर-सुव्यवस्थित वातावरण।"],
+        prosEn: ["Healthy life, saving in health expenditure and beautiful-organised environment."],
+        challenges: ["सार्वजनिक स्थानों पर कूड़ा फेंकने की पुरानी आदत को बदलना।"],
+        challengesEn: ["Changing the old habit of throwing garbage in public places."],
+        conc: "स्वच्छता ईश्वर का निवास है—आइए हम सब मिलकर अपने घर, कॉलेज और कोटद्वार को स्वच्छ व हरित बनाएँ।",
+        concEn: "Cleanliness is the abode of God—let us all together make our home, college and Kotdwar clean and green."
+    }
+];
+
+const additionalTopics = [
+    ["समाज / नागरिक शिक्षा", "Society / Civics", "भारतीय संविधान एवं मौलिक अधिकार", "Indian Constitution & Fundamental Rights", "भारतीय संविधान लोकतांत्रिक शासन की रूपरेखा देता है और नागरिकों के अधिकारों तथा कर्तव्यों को परिभाषित करता है।", "The Constitution of India provides the framework for democratic government and defines citizens' rights and duties.", "मौलिक अधिकार समानता, स्वतंत्रता और न्याय की रक्षा करते हैं।", "Fundamental rights protect equality, liberty and justice."],
+    ["इतिहास", "History", "भारत का स्वतंत्रता संग्राम", "India's Freedom Movement", "भारत का स्वतंत्रता संग्राम अनेक आंदोलनों, विचारों और जनभागीदारी से आगे बढ़ा।", "India's freedom movement advanced through many movements, ideas and public participation.", "असहयोग, सविनय अवज्ञा और भारत छोड़ो आंदोलन इसके प्रमुख पड़ाव थे।", "Non-Cooperation, Civil Disobedience and Quit India were major milestones."],
+    ["पर्यावरण", "Environment", "जलवायु परिवर्तन एवं उसके प्रभाव", "Climate Change & Its Effects", "मानवीय गतिविधियों से बढ़ती ग्रीनहाउस गैसें पृथ्वी के औसत तापमान और मौसम के स्वरूप को प्रभावित करती हैं।", "Rising greenhouse gases from human activity affect Earth's average temperature and weather patterns.", "ऊर्जा की बचत, स्वच्छ परिवहन और वृक्ष संरक्षण उत्सर्जन घटाने में मदद करते हैं।", "Energy efficiency, clean transport and tree protection help reduce emissions."],
+    ["पर्यावरण", "Environment", "जल संरक्षण एवं वर्षा जल संचयन", "Water Conservation & Rainwater Harvesting", "जल संरक्षण में पानी का विवेकपूर्ण उपयोग, पुनः उपयोग और स्थानीय जल स्रोतों की रक्षा शामिल है।", "Water conservation includes careful use, reuse and protection of local water sources.", "छतों से वर्षा जल संचय भूजल पुनर्भरण और सूखे समय में उपलब्धता बढ़ा सकता है।", "Rooftop rainwater harvesting can recharge groundwater and improve availability during dry periods."],
+    ["विज्ञान", "Science", "नवीकरणीय ऊर्जा के स्रोत", "Sources of Renewable Energy", "सौर, पवन और जल ऊर्जा जैसे नवीकरणीय स्रोत प्राकृतिक रूप से फिर उपलब्ध होते रहते हैं।", "Renewable sources such as solar, wind and hydropower are naturally replenished.", "स्थानीय जरूरत और पर्यावरणीय प्रभाव देखकर उपयुक्त ऊर्जा स्रोत चुना जाता है।", "Energy sources should be selected by considering local needs and environmental impact."],
+    ["जीवविज्ञान", "Biology", "जैव विविधता एवं पारिस्थितिकी तंत्र", "Biodiversity & Ecosystems", "जैव विविधता में किसी क्षेत्र के जीन, प्रजातियों और पारिस्थितिकी तंत्रों की विविधता शामिल है।", "Biodiversity includes the variety of genes, species and ecosystems in a region.", "प्रजातियों के परस्पर संबंध भोजन चक्र और पारिस्थितिकी संतुलन बनाए रखते हैं।", "Interactions among species sustain food webs and ecological balance."],
+    ["जीवविज्ञान", "Biology", "मानव पाचन तंत्र", "The Human Digestive System", "पाचन तंत्र भोजन को छोटे पोषक अणुओं में बदलता है जिन्हें शरीर अवशोषित कर सकता है।", "The digestive system breaks food into small nutrients that the body can absorb.", "मुख, आमाशय और छोटी आंत पाचन तथा पोषक तत्वों के अवशोषण में प्रमुख भूमिका निभाते हैं।", "The mouth, stomach and small intestine play key roles in digestion and nutrient absorption."],
+    ["जीवविज्ञान", "Biology", "कोशिका: जीवन की मूल इकाई", "The Cell: Basic Unit of Life", "कोशिका जीवों की संरचनात्मक और क्रियात्मक मूल इकाई है।", "The cell is the basic structural and functional unit of living organisms.", "कोशिका झिल्ली, कोशिकाद्रव्य और केंद्रक मिलकर आवश्यक जीवन क्रियाएँ संचालित करते हैं।", "The cell membrane, cytoplasm and nucleus work together to support essential life processes."],
+    ["विज्ञान", "Science", "सौर मंडल एवं ग्रह", "The Solar System & Planets", "सौर मंडल में सूर्य, उसके चारों ओर परिक्रमा करते ग्रह और अनेक छोटे खगोलीय पिंड शामिल हैं।", "The solar system includes the Sun, orbiting planets and many smaller celestial bodies.", "ग्रहों की कक्षाएँ, आकार और संरचना का अध्ययन पृथ्वी के स्थान को समझने में मदद करता है।", "Studying planetary orbits, sizes and composition helps explain Earth's place in space."],
+    ["भौतिक विज्ञान", "Physics", "बल, गति एवं न्यूटन के नियम", "Force, Motion & Newton's Laws", "बल किसी वस्तु की गति या आकार में परिवर्तन कर सकता है; गति का वर्णन दूरी, समय और वेग से होता है।", "A force can change an object's motion or shape; motion is described using distance, time and velocity.", "न्यूटन के गति नियम दैनिक जीवन की अनेक यांत्रिक घटनाओं को समझाते हैं।", "Newton's laws of motion explain many mechanical events in everyday life."],
+    ["भौतिक विज्ञान", "Physics", "विद्युत एवं दैनिक जीवन", "Electricity in Daily Life", "विद्युत आवेश के प्रवाह से ऊर्जा मिलती है जिसका उपयोग प्रकाश, संचार और उपकरणों में होता है।", "The flow of electric charge provides energy for lighting, communication and appliances.", "परिपथ, चालक और विद्युत सुरक्षा के मूल सिद्धांत जिम्मेदार उपयोग के लिए जरूरी हैं।", "Basic ideas about circuits, conductors and electrical safety support responsible use."],
+    ["गणित", "Mathematics", "दैनिक जीवन में गणित", "Mathematics in Everyday Life", "गणित मात्रा, पैटर्न और संबंधों को समझने के लिए स्पष्ट भाषा और विधियाँ देता है।", "Mathematics provides clear language and methods for understanding quantities, patterns and relationships.", "बजट, माप, समय-सारणी और आँकड़ों को समझने में गणित रोज काम आता है।", "Math is used every day for budgeting, measurement, scheduling and interpreting data."],
+    ["कौशल विकास", "Skill Development", "वित्तीय साक्षरता एवं बजट", "Financial Literacy & Budgeting", "वित्तीय साक्षरता आय, खर्च, बचत और जोखिम के बारे में सोच-समझकर निर्णय लेने की क्षमता है।", "Financial literacy is the ability to make informed decisions about income, spending, saving and risk.", "आवश्यकताओं को प्राथमिकता देकर बनाया गया बजट जिम्मेदार खर्च और बचत को बढ़ावा देता है।", "A budget that prioritises needs encourages responsible spending and saving."],
+    ["कौशल विकास", "Skill Development", "उद्यमिता एवं नवाचार", "Entrepreneurship & Innovation", "उद्यमिता किसी जरूरत को पहचानकर उसके लिए उपयोगी उत्पाद या सेवा विकसित करने की प्रक्रिया है।", "Entrepreneurship is the process of identifying a need and developing a useful product or service.", "ग्राहक की जरूरत, व्यवहार्य योजना और जिम्मेदार क्रियान्वयन अच्छे उद्यम की नींव हैं।", "Understanding customer needs, planning feasibility and responsible execution underpin a strong venture."],
+    ["समाज", "Society", "महिला सशक्तिकरण एवं समानता", "Women's Empowerment & Equality", "महिला सशक्तिकरण का अर्थ शिक्षा, स्वास्थ्य, सुरक्षा और निर्णय प्रक्रिया में समान अवसर सुनिश्चित करना है।", "Women's empowerment means ensuring equal opportunities in education, health, safety and decision-making.", "समान भागीदारी से परिवार, समुदाय और अर्थव्यवस्था सभी को लाभ होता है।", "Equal participation benefits families, communities and the economy."],
+    ["समाज", "Society", "डिजिटल इंडिया एवं ई-गवर्नेंस", "Digital India & E-Governance", "डिजिटल सेवाएँ नागरिकों और संस्थानों के बीच सूचना तथा सार्वजनिक सेवाओं की पहुँच बेहतर कर सकती हैं।", "Digital services can improve access to information and public services for citizens and institutions.", "सुगम सेवाओं के साथ गोपनीयता, पहुँच और डिजिटल साक्षरता पर ध्यान देना भी जरूरी है।", "Alongside convenient services, privacy, accessibility and digital literacy matter."],
+    ["डिजिटल शिक्षा", "Digital Literacy", "इंटरनेट सुरक्षा एवं जिम्मेदार उपयोग", "Internet Safety & Responsible Use", "इंटरनेट पर जिम्मेदार व्यवहार में व्यक्तिगत जानकारी की रक्षा और सूचना की विश्वसनीयता जाँचना शामिल है।", "Responsible internet use includes protecting personal information and checking the reliability of information.", "मजबूत पासवर्ड, गोपनीयता सेटिंग और सोच-समझकर साझा करना डिजिटल सुरक्षा के आधार हैं।", "Strong passwords, privacy settings and thoughtful sharing are foundations of digital safety."],
+    ["डिजिटल शिक्षा", "Digital Literacy", "कृत्रिम बुद्धिमत्ता: उपयोग और नैतिकता", "Artificial Intelligence: Uses & Ethics", "कृत्रिम बुद्धिमत्ता ऐसे कंप्यूटर प्रणालियों का क्षेत्र है जो डेटा से पैटर्न सीखकर कुछ कार्य कर सकती हैं।", "Artificial intelligence is the field of computer systems that learn patterns from data to perform certain tasks.", "AI का उपयोग करते समय निष्पक्षता, गोपनीयता, पारदर्शिता और मानवीय निगरानी महत्वपूर्ण हैं।", "Fairness, privacy, transparency and human oversight matter when using AI."],
+    ["विज्ञान / तकनीक", "Science / Technology", "रोबोटिक्स एवं स्वचालन", "Robotics & Automation", "रोबोटिक्स में ऐसे यांत्रिक तंत्र बनाए जाते हैं जो सेंसर और नियंत्रण के माध्यम से कार्य करते हैं।", "Robotics develops mechanical systems that act through sensors and control.", "स्वचालन दोहराए जाने वाले कार्यों में सहायक है, जबकि सुरक्षित डिजाइन और मानवीय देखरेख जरूरी रहते हैं।", "Automation can assist with repetitive tasks, while safe design and human oversight remain essential."],
+    ["विज्ञान", "Science", "अंतरिक्ष अन्वेषण एवं भारत", "Space Exploration & India", "अंतरिक्ष अन्वेषण से ग्रहों, तारों और पृथ्वी के वातावरण के बारे में वैज्ञानिक जानकारी मिलती है।", "Space exploration provides scientific knowledge about planets, stars and Earth's environment.", "उपग्रह संचार, मौसम पूर्वानुमान और आपदा निगरानी में उपयोगी हैं।", "Satellites support communications, weather forecasting and disaster monitoring."],
+    ["कृषि", "Agriculture", "भारतीय कृषि एवं टिकाऊ खेती", "Indian Agriculture & Sustainable Farming", "कृषि भारत की आजीविका, खाद्य व्यवस्था और ग्रामीण अर्थव्यवस्था का महत्वपूर्ण आधार है।", "Agriculture is an important foundation of livelihoods, food systems and India's rural economy.", "मृदा स्वास्थ्य, जल-कुशल सिंचाई और विविध फसलें खेती को अधिक टिकाऊ बना सकती हैं।", "Healthy soils, water-efficient irrigation and crop diversity can make farming more sustainable."],
+    ["आपदा प्रबंधन", "Disaster Management", "उत्तराखंड में आपदा तैयारी", "Disaster Preparedness in Uttarakhand", "उत्तराखंड की भौगोलिक परिस्थितियों में भूस्खलन, बाढ़ और भूकंप जैसे जोखिमों के लिए तैयारी आवश्यक है।", "Uttarakhand's geography makes preparedness for risks such as landslides, floods and earthquakes important.", "स्थानीय चेतावनी, सुरक्षित निकासी मार्ग और आपातकालीन संपर्क तैयारी के मुख्य हिस्से हैं।", "Local alerts, safe evacuation routes and emergency contacts are key parts of preparedness."],
+    ["पर्यावरण", "Environment", "वन्यजीव संरक्षण एवं राष्ट्रीय उद्यान", "Wildlife Conservation & National Parks", "वन्यजीव संरक्षण प्रजातियों, उनके आवास और प्राकृतिक पारिस्थितिकी तंत्रों की रक्षा करता है।", "Wildlife conservation protects species, their habitats and natural ecosystems.", "आवास संरक्षण, जिम्मेदार पर्यटन और स्थानीय समुदायों की भागीदारी संरक्षण को मजबूत करती है।", "Habitat protection, responsible tourism and community participation strengthen conservation."],
+    ["पर्यावरण", "Environment", "गंगा एवं नदी संरक्षण", "Ganga & River Conservation", "नदियाँ पेयजल, कृषि, जैव विविधता और सांस्कृतिक जीवन के लिए महत्वपूर्ण प्राकृतिक प्रणालियाँ हैं।", "Rivers are important natural systems for drinking water, agriculture, biodiversity and cultural life.", "प्रदूषण रोकना, जलग्रहण क्षेत्र बचाना और अपशिष्ट का उपचार नदी स्वास्थ्य के लिए जरूरी है।", "Preventing pollution, protecting watersheds and treating waste are vital for river health."],
+    ["इतिहास / स्थानीय अध्ययन", "History / Local Studies", "कोटद्वार का इतिहास एवं स्थानीय विरासत", "Kotdwar: History & Local Heritage", "कोटद्वार गढ़वाल का प्रवेश द्वार है और इसके आसपास प्राकृतिक तथा सांस्कृतिक विरासत के अनेक स्थल हैं।", "Kotdwar is the gateway to Garhwal, with many sites of natural and cultural heritage nearby.", "स्थानीय इतिहास को मौखिक परंपराओं, अभिलेखों और स्थलों के अध्ययन से समझा जा सकता है।", "Local history can be understood through oral traditions, records and the study of heritage sites."],
+    ["पर्यटन", "Tourism", "उत्तराखंड में सतत पर्यटन", "Sustainable Tourism in Uttarakhand", "सतत पर्यटन स्थानीय संस्कृति और प्रकृति का सम्मान करते हुए आजीविका के अवसर पैदा करता है।", "Sustainable tourism creates livelihood opportunities while respecting local culture and nature.", "कचरा कम करना, स्थानीय व्यवसायों को समर्थन देना और संवेदनशील स्थलों की क्षमता का सम्मान करना जरूरी है।", "Reducing waste, supporting local businesses and respecting site capacity are important."],
+    ["स्वास्थ्य शिक्षा", "Health Education", "योग एवं समग्र स्वास्थ्य", "Yoga & Holistic Well-Being", "योग में शारीरिक अभ्यास, श्वास और ध्यान के अभ्यास शामिल हैं जो समग्र स्वास्थ्य को सहारा दे सकते हैं।", "Yoga includes physical, breathing and mindfulness practices that can support overall well-being.", "नियमितता, सही अभ्यास और व्यक्ति की स्वास्थ्य जरूरतों के अनुसार अनुकूलन महत्वपूर्ण है।", "Consistency, proper practice and adapting to individual health needs are important."],
+    ["स्वास्थ्य शिक्षा", "Health Education", "पोषण एवं संतुलित आहार", "Nutrition & Balanced Diet", "संतुलित आहार शरीर को ऊर्जा और वृद्धि तथा स्वास्थ्य के लिए आवश्यक पोषक तत्व देता है।", "A balanced diet provides energy and nutrients needed for growth and health.", "विविध खाद्य समूह, स्वच्छ पानी और स्थानीय मौसमी भोजन स्वस्थ भोजन की आदतें बनाते हैं।", "Varied food groups, clean water and local seasonal foods support healthy eating habits."],
+    ["स्वास्थ्य शिक्षा", "Health Education", "मानसिक स्वास्थ्य एवं तनाव प्रबंधन", "Mental Health & Stress Management", "मानसिक स्वास्थ्य हमारी सोच, भावनाओं, संबंधों और दैनिक चुनौतियों से निपटने की क्षमता से जुड़ा है।", "Mental health relates to how we think, feel, connect and cope with everyday challenges.", "आराम, सहायक संबंध और जरूरत पड़ने पर विश्वसनीय वयस्क या विशेषज्ञ से बात करना मददगार है।", "Rest, supportive relationships and speaking with a trusted adult or professional when needed can help."],
+    ["सुरक्षा शिक्षा", "Safety Education", "सड़क सुरक्षा एवं यातायात नियम", "Road Safety & Traffic Rules", "सड़क सुरक्षा नियम पैदल यात्रियों, साइकिल चालकों और वाहन चालकों को दुर्घटनाओं से बचाने में मदद करते हैं।", "Road safety rules help protect pedestrians, cyclists and drivers from crashes.", "हेलमेट और सीट बेल्ट का उपयोग, संकेतों का पालन और सतर्क गति सुरक्षित यात्रा के आधार हैं।", "Helmets and seat belts, obeying signs and attentive speeds are foundations of safer travel."],
+    ["स्वास्थ्य शिक्षा", "Health Education", "प्राथमिक उपचार एवं आपातकालीन सहायता", "First Aid & Emergency Response", "प्राथमिक उपचार पेशेवर चिकित्सा सहायता मिलने तक चोट या अचानक बीमारी में दी जाने वाली शुरुआती मदद है।", "First aid is the initial help given for injury or sudden illness until professional care is available.", "स्थिति को सुरक्षित रखना, आपात सेवा बुलाना और प्रशिक्षित निर्देशों का पालन करना प्राथमिक कदम हैं।", "Securing the scene, calling emergency services and following trained guidance are first steps."],
+    ["कौशल विकास", "Skill Development", "करियर योजना एवं लक्ष्य निर्धारण", "Career Planning & Goal Setting", "करियर योजना में रुचियों, क्षमताओं और अवसरों को समझकर शिक्षा तथा काम के विकल्प चुनना शामिल है।", "Career planning involves understanding interests, strengths and opportunities to choose education and work options.", "छोटे मापने योग्य लक्ष्य, अनुभव और मार्गदर्शन निर्णयों को स्पष्ट बनाते हैं।", "Small measurable goals, experience and guidance help clarify decisions."],
+    ["कौशल विकास", "Skill Development", "संचार कौशल एवं प्रभावी प्रस्तुति", "Communication Skills & Effective Presentations", "प्रभावी संचार में विचारों को स्पष्ट रूप से कहना, ध्यान से सुनना और श्रोता के अनुसार संदेश ढालना शामिल है।", "Effective communication means expressing ideas clearly, listening carefully and adapting a message to the audience.", "उद्देश्य तय करना, मुख्य बिंदु व्यवस्थित करना और अभ्यास करना प्रस्तुति को बेहतर बनाता है।", "Setting a purpose, organising key points and practising improve a presentation."],
+    ["कौशल विकास", "Skill Development", "नेतृत्व एवं टीमवर्क", "Leadership & Teamwork", "टीमवर्क साझा लक्ष्य के लिए सहयोग है और नेतृत्व टीम को दिशा तथा जिम्मेदारी लेने में मदद करता है।", "Teamwork is collaboration toward a shared goal, while leadership helps a team find direction and take responsibility.", "भूमिकाएँ स्पष्ट करना, सबकी बात सुनना और प्रगति की समीक्षा करना सहयोग बढ़ाता है।", "Clarifying roles, listening to everyone and reviewing progress strengthen collaboration."],
+    ["नागरिक शिक्षा", "Civics", "लोकतंत्र एवं चुनाव प्रक्रिया", "Democracy & the Election Process", "लोकतंत्र में नागरिक प्रतिनिधियों और सार्वजनिक निर्णयों में भाग लेते हैं।", "In a democracy, citizens participate in choosing representatives and shaping public decisions.", "स्वतंत्र और निष्पक्ष चुनाव, जागरूक मतदाता और जवाबदेह संस्थाएँ लोकतांत्रिक व्यवस्था के आधार हैं।", "Free and fair elections, informed voters and accountable institutions underpin democracy."],
+    ["नागरिक शिक्षा", "Civics", "उपभोक्ता अधिकार एवं जागरूकता", "Consumer Rights & Awareness", "उपभोक्ता जागरूकता लोगों को वस्तुओं और सेवाओं के बारे में सूचित निर्णय लेने में मदद करती है।", "Consumer awareness helps people make informed decisions about goods and services.", "बिल लेना, शर्तें पढ़ना और समस्या होने पर उचित शिकायत मंच का उपयोग करना उपयोगी कदम हैं।", "Keeping receipts, reading terms and using appropriate complaint channels are useful steps."],
+    ["पर्यावरण", "Environment", "कचरा प्रबंधन एवं पुनर्चक्रण", "Waste Management & Recycling", "कचरा प्रबंधन में कचरे को कम करना, अलग-अलग एकत्र करना और सुरक्षित ढंग से संसाधित करना शामिल है।", "Waste management includes reducing waste, separating it and processing it safely.", "गीले और सूखे कचरे का पृथक्करण तथा पुनः उपयोग लैंडफिल पर दबाव घटा सकते हैं।", "Separating wet and dry waste and reusing materials can reduce pressure on landfills."],
+    ["समाज / नैतिक शिक्षा", "Society / Values", "सामाजिक सद्भाव एवं विविधता", "Social Harmony & Diversity", "भारत की भाषाई, धार्मिक और सांस्कृतिक विविधता समान सम्मान और संवाद की आवश्यकता बताती है।", "India's linguistic, religious and cultural diversity calls for mutual respect and dialogue.", "सहिष्णुता, साझा नागरिकता और भेदभाव का विरोध सामाजिक एकता को मजबूत करते हैं।", "Tolerance, shared citizenship and opposing discrimination strengthen social unity."],
+    ["विज्ञान / तकनीक", "Science / Technology", "मशीन लर्निंग एवं डेटा का परिचय", "Introduction to Machine Learning & Data", "मशीन लर्निंग में कंप्यूटर उदाहरणों वाले डेटा से पैटर्न सीखते हैं और अनुमान या वर्गीकरण करते हैं।", "In machine learning, computers learn patterns from example data to make predictions or classifications.", "अच्छे परिणामों के लिए प्रतिनिधि डेटा, सावधानीपूर्वक मूल्यांकन और सीमाओं की समझ जरूरी है।", "Representative data, careful evaluation and awareness of limitations are needed for reliable results."],
+    ["विज्ञान", "Science", "ध्वनि, प्रकाश एवं तरंगें", "Sound, Light & Waves", "तरंगें ऊर्जा को एक स्थान से दूसरे स्थान तक पहुँचाती हैं; ध्वनि और प्रकाश इनके अलग-अलग उदाहरण हैं।", "Waves transfer energy from one place to another; sound and light are different examples.", "आवृत्ति, तरंगदैर्ध्य और माध्यम का अध्ययन इनके व्यवहार को समझने में मदद करता है।", "Studying frequency, wavelength and medium helps explain their behaviour."],
+];
+
+function buildAdditionalTopic(topic) {
+    const [cat, catEn, title, titleEn, overview, overviewEn, application, applicationEn] = topic;
+    return {
+        cat, catEn, title, titleEn,
+        sub: `${title} का परिचय, प्रमुख अवधारणाएँ और व्यावहारिक महत्व`,
+        subEn: `An introduction to ${titleEn}, its key ideas and practical importance`,
+        intro: [overview, `${title} को समझने से संबंधित निर्णयों और दैनिक जीवन में विषय की भूमिका स्पष्ट होती है।`, `इस प्रस्तुति में इसकी मूल अवधारणाओं, उपयोगों और जिम्मेदार अभ्यास पर ध्यान दिया गया है।`],
+        introEn: [overviewEn, `Understanding ${titleEn} clarifies the subject's role in relevant decisions and everyday life.`, `This presentation focuses on its core ideas, applications and responsible practice.`],
+        fact: overview,
+        factEn: overviewEn,
+        cards: [
+            { t: "मुख्य अवधारणा", tEn: "Core Idea", d: overview, dEn: overviewEn },
+            { t: "व्यावहारिक महत्व", tEn: "Practical Importance", d: application, dEn: applicationEn },
+            { t: "जिम्मेदार दृष्टिकोण", tEn: "Responsible Approach", d: "तथ्यों की जाँच करें, अलग-अलग दृष्टिकोण समझें और स्थानीय संदर्भ का सम्मान करें।", dEn: "Check the evidence, consider different perspectives and respect the local context." }
+        ],
+        steps: ["विषय के मुख्य शब्दों और आधारभूत अवधारणाओं की पहचान करें।", "विश्वसनीय पुस्तकों, शैक्षणिक स्रोतों और स्थानीय उदाहरणों से जानकारी जुटाएँ।", "तथ्यों को व्यवस्थित कर कारण, प्रभाव और व्यावहारिक उपयोग समझाएँ।", "निष्कर्ष की समीक्षा करें और जिम्मेदार कदमों या आगे के प्रश्नों का उल्लेख करें."],
+        stepsEn: ["Identify the topic's key terms and foundational ideas.", "Gather information from reliable books, educational sources and local examples.", "Organise the evidence and explain causes, effects and practical applications.", "Review the conclusion and note responsible actions or questions for further study."],
+        uses: [application, "स्कूल, कॉलेज और समुदाय में विषय आधारित चर्चा तथा परियोजना कार्य।", "सही जानकारी के आधार पर व्यक्तिगत और सामूहिक निर्णय लेना।"],
+        usesEn: [applicationEn, "Topic-based discussion and project work at school, college and in the community.", "Making individual and collective decisions using reliable information."],
+        pros: ["विषय की समझ और आलोचनात्मक सोच विकसित होती है।", "सीखी गई अवधारणाओं को वास्तविक परिस्थितियों से जोड़ने में मदद मिलती है।"],
+        prosEn: ["Builds subject understanding and critical thinking.", "Helps connect learned concepts with real-world situations."],
+        challenges: ["गलत या अधूरी जानकारी से बचने के लिए स्रोतों की जाँच आवश्यक है।", "हर क्षेत्र की जरूरतें अलग हो सकती हैं, इसलिए स्थानीय संदर्भ पर ध्यान देना चाहिए।"],
+        challengesEn: ["Sources need to be checked to avoid inaccurate or incomplete information.", "Needs can vary by setting, so local context should be considered."],
+        conc: `${title} की समझ हमें जानकारी का जिम्मेदारी से उपयोग करने और बेहतर निर्णय लेने में मदद करती है।`,
+        concEn: `Understanding ${titleEn} helps us use information responsibly and make better decisions.`
+    };
+}
+
+allTopics.push(...additionalTopics.map(buildAdditionalTopic));
+
+// ===================== UI LABELS (Hindi / English) =====================
+const labels = {
+    hi: {
+        panelTitle: "🎓 कोटद्वार PPT स्टूडियो (50+ विषय)",
+        panelTip: "💡 किसी भी स्लाइड के टेक्स्ट पर क्लिक करके एडिट करें | प्रिंट में Landscape/Portrait चुनें",
+        lblInstPreset: "संस्थान चुनें (Kotdwar Presets)",
+        lblInstName: "स्कूल / कॉलेज का नाम",
+        lblInstSub: "उप-शीर्षक / पता",
+        lblTopic: "विषय चुनें (Topic)",
+        lblStudent: "विद्यार्थी का नाम (Submitted By)",
+        lblClass: "कक्षा / सेमेस्टर और रोल नंबर",
+        lblTeacher: "शिक्षक / प्राध्यापक (Submitted To)",
+        lblTheme: "थीम रंग (Color Theme)",
+        lblOrient: "ओरिएंटेशन (Orientation)",
+        lblLang: "भाषा (Language)",
+        langNote: "नोट: विषय सामग्री मुख्यतः हिंदी में है। English मोड में UI अंग्रेजी हो जाएगी। स्लाइड्स पर क्लिक करके व्यक्तिगत रूप से एडिट कर सकते हैं।",
+        btnPlay: "📽️ फुल स्क्रीन PPT चलाएँ",
+        btnPrint: "🖨️ प्रिंट / PDF सेव करें",
+        btnAddSlide: "➕ स्लाइड जोड़ें",
+        lblBlankSlideCount: "खाली स्लाइडें",
+        btnAddBlankSlides: "＋ जोड़ें",
+        blankSlideCountError: "खाली स्लाइडों की संख्या 1 या उससे अधिक दर्ज करें।",
+        currentPageCount: "कुल पेज",
+        removeSlidesConfirm: "अंत से {count} स्लाइडें हटेंगी। आगे बढ़ें?",
+        invalidPageCount: "कुल पेज की संख्या 1 से 100 के बीच दर्ज करें।",
+        maxSlidesReached: "इस प्रेज़ेंटेशन में अधिकतम 100 स्लाइडें जोड़ी जा सकती हैं।",
+        btnDownloadDeck: "📥 प्रस्तुति डाउनलोड",
+        exportDialogTitle: "डाउनलोड फ़ॉर्मेट चुनें",
+        exportDialogHint: "PowerPoint और Word डाउनलोड के लिए इंटरनेट कनेक्शन चाहिए। PDF ब्राउज़र के प्रिंट डायलॉग से सेव होगा।",
+        exportPptx: "📊 PowerPoint (.pptx)",
+        exportDocx: "📝 Word दस्तावेज़ (.docx)",
+        exportPdf: "📄 PDF (.pdf)",
+        exportCancel: "रद्द करें",
+        exportError: "डाउनलोड नहीं हो पाया। इंटरनेट जाँचकर फिर कोशिश करें।",
+        slideCountInfo: "चयनित विषय में कुल <strong>{count} स्लाइड्स</strong> तैयार हैं।",
+        slideIntro: "📌 विषय परिचय (Introduction)",
+        slideConcepts: "🧩 मुख्य अवधारणाएँ एवं वर्गीकरण (Key Concepts)",
+        slideDiagram: "🧠 विषय का चित्रात्मक मानचित्र",
+        slideProcess: "⚙️ कार्यप्रणाली एवं प्रमुख चरण (Working & Process)",
+        slideApps: "🚀 व्यावहारिक उपयोग एवं महत्व (Applications)",
+        slidePros: "⚖️ प्रमुख लाभ एवं वर्तमान चुनौतियाँ (Pros & Challenges)",
+        slideConc: "🎯 निष्कर्ष एवं धन्यवाद (Conclusion)",
+        submittedBy: "प्रस्तुतकर्ता (Submitted By)",
+        classRoll: "कक्षा एवं रोल नंबर",
+        submittedTo: "मार्गदर्शक (Submitted To)",
+        session: "शैक्षणिक सत्र",
+        keyFact: "💡 विशेष तथ्य (Key Fact):",
+        summary: "📌 सारांश:",
+        advantages: "✅ प्रमुख लाभ (Advantages)",
+        challenges: "⚠️ चुनौतियाँ / सीमाएँ (Challenges)",
+        conclusion: "मुख्य निष्कर्ष (Conclusion)",
+        thankYou: "🙏 धन्यवाद (Thank You)!",
+        thankMsg: "प्रस्तुति देखने के लिए आभार | यदि कोई प्रश्न हो तो कृपया पूछें।",
+        presenter: "प्रस्तुतकर्ता"
+    },
+    en: {
+        panelTitle: "🎓 Kotdwar PPT Studio (50+ Topics)",
+        panelTip: "💡 Click any text on slides to edit | Choose Landscape/Portrait for print",
+        lblInstPreset: "Select Institute (Kotdwar Presets)",
+        lblInstName: "School / College Name",
+        lblInstSub: "Subtitle / Address",
+        lblTopic: "Select Topic",
+        lblStudent: "Student Name (Submitted By)",
+        lblClass: "Class / Semester & Roll No.",
+        lblTeacher: "Teacher / Professor (Submitted To)",
+        lblTheme: "Color Theme",
+        lblOrient: "Orientation",
+        lblLang: "Language",
+        langNote: "Note: Topic content is primarily in Hindi. In English mode UI becomes English. You can still edit individual slides by clicking.",
+        btnPlay: "📽️ Full Screen PPT Play",
+        btnPrint: "🖨️ Print / Save PDF",
+        btnAddSlide: "➕ Add Slide",
+        lblBlankSlideCount: "Blank slides",
+        btnAddBlankSlides: "＋ Add",
+        blankSlideCountError: "Enter a blank slide count of at least 1.",
+        currentPageCount: "Total pages",
+        removeSlidesConfirm: "The last {count} slides will be removed. Continue?",
+        invalidPageCount: "Enter a total page count between 1 and 100.",
+        maxSlidesReached: "A presentation can contain up to 100 slides.",
+        btnDownloadDeck: "📥 Download Presentation",
+        exportDialogTitle: "Choose a download format",
+        exportDialogHint: "PowerPoint and Word downloads need an internet connection. Save PDF from the browser's print dialog.",
+        exportPptx: "📊 PowerPoint (.pptx)",
+        exportDocx: "📝 Word document (.docx)",
+        exportPdf: "📄 PDF (.pdf)",
+        exportCancel: "Cancel",
+        exportError: "Download failed. Check your internet connection and try again.",
+        slideCountInfo: "Selected topic has total <strong>{count} slides</strong> ready.",
+        slideIntro: "📌 Introduction",
+        slideConcepts: "🧩 Key Concepts & Classification",
+        slideDiagram: "🧠 Topic Concept Map",
+        slideProcess: "⚙️ Working Process & Main Steps",
+        slideApps: "🚀 Practical Applications & Importance",
+        slidePros: "⚖️ Major Advantages & Current Challenges",
+        slideConc: "🎯 Conclusion & Thank You",
+        submittedBy: "Submitted By",
+        classRoll: "Class & Roll No.",
+        submittedTo: "Submitted To",
+        session: "Academic Session",
+        keyFact: "💡 Key Fact:",
+        summary: "📌 Summary:",
+        advantages: "✅ Major Advantages",
+        challenges: "⚠️ Challenges / Limitations",
+        conclusion: "Main Conclusion",
+        thankYou: "🙏 Thank You!",
+        thankMsg: "Thank you for watching the presentation | Please ask if you have any questions.",
+        presenter: "Presenter"
+    }
+};
+
+let currentLang = 'hi';
+let currentOrient = 'landscape';
+let requestedSlideCount = 8;
+
+function getL(key) {
+    return labels[currentLang][key] || labels.hi[key];
+}
+
+function changeLanguage() {
+    currentLang = document.getElementById('langSelect').value;
+    document.getElementById('panelTitle').textContent = getL('panelTitle');
+    document.getElementById('panelTip').textContent = getL('panelTip');
+    document.getElementById('lblInstPreset').textContent = getL('lblInstPreset');
+    document.getElementById('lblInstName').textContent = getL('lblInstName');
+    document.getElementById('lblInstSub').textContent = getL('lblInstSub');
+    document.getElementById('lblTopic').textContent = getL('lblTopic');
+    document.getElementById('lblStudent').textContent = getL('lblStudent');
+    document.getElementById('lblClass').textContent = getL('lblClass');
+    document.getElementById('lblTeacher').textContent = getL('lblTeacher');
+    document.getElementById('lblTheme').textContent = getL('lblTheme');
+    document.getElementById('lblOrient').textContent = getL('lblOrient');
+    document.getElementById('lblLang').textContent = getL('lblLang');
+    document.getElementById('langNote').textContent = getL('langNote');
+    document.getElementById('btnPlay').textContent = getL('btnPlay');
+    document.getElementById('btnPrint').textContent = getL('btnPrint');
+    document.getElementById('btnAddSlide').textContent = getL('btnAddSlide');
+    document.getElementById('lblBlankSlideCount').textContent = getL('lblBlankSlideCount');
+    document.getElementById('btnAddBlankSlides').textContent = getL('btnAddBlankSlides');
+    document.getElementById('lblCurrentPageCount').textContent = getL('currentPageCount');
+    document.getElementById('currentPageCount').setAttribute('aria-label', getL('currentPageCount'));
+    document.getElementById('btnDownloadDeck').textContent = getL('btnDownloadDeck');
+    document.getElementById('exportDialogTitle').textContent = getL('exportDialogTitle');
+    document.getElementById('exportDialogHint').textContent = getL('exportDialogHint');
+    document.getElementById('exportPptx').textContent = getL('exportPptx');
+    document.getElementById('exportDocx').textContent = getL('exportDocx');
+    document.getElementById('exportPdf').textContent = getL('exportPdf');
+    document.getElementById('exportCancel').textContent = getL('exportCancel');
+    document.getElementById('slideCountInfo').innerHTML = getL('slideCountInfo').replace('{count}', document.querySelectorAll('#slidesContainer .slide-page').length || 8);
+    // Update topic dropdown text
+    fillTopicSelect();
+    // Re-apply preset names if needed
+    applyPreset(true);
+    renderSlides();
+}
+
+function changeOrientation() {
+    currentOrient = document.getElementById('orientSelect').value;
+    document.body.classList.remove('orient-landscape', 'orient-portrait');
+    document.body.classList.add('orient-' + currentOrient);
+    // Update @page via style
+    let styleEl = document.getElementById('dynamicPageStyle');
+    if (!styleEl) {
+        styleEl = document.createElement('style');
+        styleEl.id = 'dynamicPageStyle';
+        document.head.appendChild(styleEl);
+    }
+    if (currentOrient === 'portrait') {
+        styleEl.textContent = '@page { size: A4 portrait; margin: 0; }';
+    } else {
+        styleEl.textContent = '@page { size: A4 landscape; margin: 0; }';
+    }
+}
+
+function applyPreset(keepLang) {
+    const val = document.getElementById('instPreset').value;
+    if (instPresets[val]) {
+        const p = instPresets[val];
+        if (currentLang === 'en' && p.nameEn) {
+            document.getElementById('inpInstName').value = p.nameEn;
+            document.getElementById('inpInstSub').value = p.subEn;
+        } else {
+            document.getElementById('inpInstName').value = p.name;
+            document.getElementById('inpInstSub').value = p.sub;
+        }
+        if (!keepLang) renderSlides();
+    }
+}
+
+function changeTheme() {
+    const theme = document.getElementById('themeSelect').value;
+    document.body.className = (document.body.className.match(/orient-\w+/) || [''])[0] + ' ' + theme;
+    document.body.classList.add('orient-' + currentOrient);
+}
+
+function fillTopicSelect() {
+    const sel = document.getElementById('topicSelect');
+    const current = sel.value;
+    sel.innerHTML = '';
+    allTopics.forEach((t, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        const cat = currentLang === 'en' ? (t.catEn || t.cat) : t.cat;
+        const title = currentLang === 'en' ? (t.titleEn || t.title) : t.title;
+        opt.textContent = `${idx + 1}. [${cat}] ${title}`;
+        sel.appendChild(opt);
+    });
+    if (current !== '' && current < allTopics.length) sel.value = current;
+}
+
+function renderSlides() {
+    const instName = document.getElementById('inpInstName').value || "Educational Institute";
+    const instSub = document.getElementById('inpInstSub').value || "Kotdwar, Uttarakhand";
+    const student = document.getElementById('inpStudent').value || "Student Name";
+    const cls = document.getElementById('inpClass').value || "Class / Roll No.";
+    const teacher = document.getElementById('inpTeacher').value || "Subject Teacher";
+    const idx = parseInt(document.getElementById('topicSelect').value || 0);
+    const t = allTopics[idx] || allTopics[0];
+    const year = new Date().getFullYear();
+    const sessionYear = `${year}-${(year + 1).toString().slice(-2)}`;
+
+    const isEn = currentLang === 'en';
+    const title = isEn ? (t.titleEn || t.title) : t.title;
+    const sub = isEn ? (t.subEn || t.sub) : t.sub;
+    const cat = isEn ? (t.catEn || t.cat) : t.cat;
+    const intro = isEn ? (t.introEn || t.intro) : t.intro;
+    const fact = isEn ? (t.factEn || t.fact) : t.fact;
+    const cards = t.cards.map(c => ({
+        t: isEn ? (c.tEn || c.t) : c.t,
+        d: isEn ? (c.dEn || c.d) : c.d
+    }));
+    const steps = isEn ? (t.stepsEn || t.steps) : t.steps;
+    const uses = isEn ? (t.usesEn || t.uses) : t.uses;
+    const pros = isEn ? (t.prosEn || t.pros) : t.pros;
+    const challenges = isEn ? (t.challengesEn || t.challenges) : t.challenges;
+    const conc = isEn ? (t.concEn || t.conc) : t.conc;
+
+    const container = document.getElementById('slidesContainer');
+    const savedExtraSlides = Array.from(container.querySelectorAll('.extra-slide'), slide => ({
+        isBlank: slide.classList.contains('blank-slide'),
+        slide: slide.cloneNode(true)
+    }));
+    container.innerHTML = `
+        <!-- SLIDE 1: COVER -->
+        <div class="slide-page slide-cover active-slide">
+            <div class="cover-decor"></div>
+            <div class="cover-top">
+                <div class="inst-emblem">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary);">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <div class="inst-title">
+                    <h3 contenteditable="true">${instName}</h3>
+                    <p contenteditable="true">${instSub}</p>
+                </div>
+            </div>
+            <div class="cover-center">
+                <span class="topic-badge">${cat} | PRESENTATION</span>
+                <h1 contenteditable="true">${title}</h1>
+                <p contenteditable="true">${sub}</p>
+            </div>
+            <div class="cover-footer">
+                <div class="meta-box">
+                    <small>${getL('submittedBy')}</small>
+                    <strong contenteditable="true">${student}</strong>
+                </div>
+                <div class="meta-box">
+                    <small>${getL('classRoll')}</small>
+                    <strong contenteditable="true">${cls}</strong>
+                </div>
+                <div class="meta-box">
+                    <small>${getL('submittedTo')}</small>
+                    <strong contenteditable="true">${teacher}</strong>
+                </div>
+                <div class="meta-box">
+                    <small>${getL('session')}</small>
+                    <strong contenteditable="true">${sessionYear}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: INTRODUCTION -->
+        <div class="slide-page">
+            <div class="slide-header">
+                <h2>${getL('slideIntro')}</h2>
+                <span class="slide-tag">Slide 02 / 07</span>
+            </div>
+            <div class="slide-body">
+                <div class="content-card">
+                    <h3 contenteditable="true">${title}</h3>
+                    <ul class="bullet-list" contenteditable="true">
+                        ${intro.map(line => `<li>${line}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="highlight-banner" contenteditable="true">
+                    <strong>${getL('keyFact')}</strong> ${fact}
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>${instName}</span>
+                <span>${student} (${cls})</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: KEY CONCEPTS -->
+        <div class="slide-page">
+            <div class="slide-header">
+                <h2>${getL('slideConcepts')}</h2>
+                <span class="slide-tag">Slide 03 / 07</span>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3">
+                    ${cards.map((c, i) => `
+                        <div class="content-card ${i === 1 ? 'accent-border' : ''}">
+                            <h3 contenteditable="true">🔹 ${c.t}</h3>
+                            <p contenteditable="true" style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.5;">${c.d}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="highlight-banner" contenteditable="true">
+                    <strong>${getL('summary')}</strong> ${isEn ? 'The above three pillars clearly explain the complete structure and practical understanding of this topic.' : 'उपरोक्त तीनों प्रमुख स्तंभ इस विषय की संपूर्ण कार्यसंरचना और व्यावहारिक समझ को स्पष्ट करते हैं।'}
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>${instName}</span>
+                <span>${title}</span>
+            </div>
+        </div>
+
+            <!-- TOPIC DIAGRAM -->
+            <div class="slide-page diagram-slide">
+                <div class="slide-header">
+                    <h2>${getL('slideDiagram')}</h2>
+                    <span class="slide-tag"></span>
+                </div>
+                <div class="slide-body">
+                    <div class="topic-map">
+                        <div class="topic-map-root">
+                            <small>${escapeHtml(cat)}</small>
+                            <h3 contenteditable="true">${escapeHtml(title)}</h3>
+                        </div>
+                        <div class="topic-map-connector"></div>
+                        <div class="topic-map-branches">
+                            ${cards.map((card, index) => `
+                                <div class="topic-map-node">
+                                    <span class="topic-map-number">${String(index + 1).padStart(2, '0')}</span>
+                                    <h3 contenteditable="true">${escapeHtml(card.t)}</h3>
+                                    <p contenteditable="true">${escapeHtml(card.d)}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-footer">
+                    <span>${instName}</span>
+                    <span>${title}</span>
+                </div>
+            </div>
+
+        <!-- SLIDE 4: PROCESS -->
+        <div class="slide-page">
+            <div class="slide-header">
+                <h2>${getL('slideProcess')}</h2>
+                <span class="slide-tag">Slide 04 / 07</span>
+            </div>
+            <div class="slide-body">
+                <div class="grid-4">
+                    ${steps.map((st, i) => `
+                        <div class="step-box">
+                            <div class="step-num">${i + 1}</div>
+                            <div contenteditable="true" style="font-size: 0.93rem; line-height: 1.4;">${st}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>${instName}</span>
+                <span>${student} (${cls})</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: APPLICATIONS -->
+        <div class="slide-page">
+            <div class="slide-header">
+                <h2>${getL('slideApps')}</h2>
+                <span class="slide-tag">Slide 05 / 07</span>
+            </div>
+            <div class="slide-body">
+                <div class="content-card accent-border">
+                    <h3 contenteditable="true">${isEn ? 'Major Uses in Modern Life & Society' : 'आधुनिक जीवन एवं समाज में प्रमुख उपयोग'}</h3>
+                    <ul class="bullet-list" contenteditable="true">
+                        ${uses.map(u => `<li>${u}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>${instName}</span>
+                <span>${title}</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: PROS & CHALLENGES -->
+        <div class="slide-page">
+            <div class="slide-header">
+                <h2>${getL('slidePros')}</h2>
+                <span class="slide-tag">Slide 06 / 07</span>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div class="content-card" style="border-top-color: #059669;">
+                        <h3 style="color: #065f46;" contenteditable="true">${getL('advantages')}</h3>
+                        <ul class="bullet-list" contenteditable="true">
+                            ${pros.map(p => `<li>${p}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="content-card" style="border-top-color: #dc2626;">
+                        <h3 style="color: #991b1b;" contenteditable="true">${getL('challenges')}</h3>
+                        <ul class="bullet-list" contenteditable="true">
+                            ${challenges.map(ch => `<li>${ch}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>${instName}</span>
+                <span>${student} (${cls})</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: CONCLUSION -->
+        <div class="slide-page">
+            <div class="slide-header">
+                <h2>${getL('slideConc')}</h2>
+                <span class="slide-tag">Slide 07 / 07</span>
+            </div>
+            <div class="slide-body">
+                <div class="content-card">
+                    <h3 contenteditable="true">${getL('conclusion')}</h3>
+                    <p contenteditable="true" style="font-size: 1.05rem; line-height: 1.55; color: var(--text-dark);">${conc}</p>
+                </div>
+                <div class="thank-you-box">
+                    <h2 contenteditable="true">${getL('thankYou')}</h2>
+                    <p contenteditable="true" style="font-size: 1rem; color: #e2e8f0;">${getL('thankMsg')}</p>
+                    <p style="margin-top: 8px; font-size: 0.88rem; color: #fde68a;">
+                        ${getL('presenter')}: ${student} | ${cls} | ${instName}
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>${instName}</span>
+                <span>${getL('session')}: ${sessionYear}</span>
+            </div>
+        </div>
+    `;
+    const basePages = Array.from(container.querySelectorAll('.slide-page'));
+    const keepBaseCount = Math.max(0, requestedSlideCount - savedExtraSlides.length);
+    while (basePages.length > keepBaseCount) basePages.pop().remove();
+    let autoSlideCount = 0;
+    savedExtraSlides.forEach(({ isBlank, slide }) => {
+        container.appendChild(isBlank ? slide : createAutoSlide(autoSlideCount++));
+    });
+    resizeSlides(requestedSlideCount);
+}
+
+function updateSlideCount() {
+    const pages = Array.from(document.querySelectorAll('#slidesContainer .slide-page'));
+    pages.forEach((page, index) => {
+        const tag = page.querySelector('.slide-tag');
+        if (tag) tag.textContent = `Slide ${String(index + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`;
+    });
+    requestedSlideCount = pages.length;
+    document.getElementById('currentPageCount').value = pages.length;
+    document.getElementById('slideCountInfo').innerHTML = getL('slideCountInfo').replace('{count}', pages.length);
+}
+
+function resizeSlides(count) {
+    const container = document.getElementById('slidesContainer');
+    while (container.querySelectorAll('.slide-page').length > count) {
+        container.lastElementChild.remove();
+    }
+    while (container.querySelectorAll('.slide-page').length < count) {
+        const autoCount = container.querySelectorAll('.auto-slide').length;
+        container.appendChild(createAutoSlide(autoCount));
+    }
+    updateSlideCount();
+}
+
+function setPageCount() {
+    const input = document.getElementById('currentPageCount');
+    const count = Number(input.value);
+    const pages = Array.from(document.querySelectorAll('#slidesContainer .slide-page'));
+    if (!Number.isInteger(count) || count < 1 || count > 100) {
+        alert(getL('invalidPageCount'));
+        input.value = pages.length;
+        input.focus();
+        return;
+    }
+    if (count < pages.length && !window.confirm(getL('removeSlidesConfirm').replace('{count}', pages.length - count))) {
+        input.value = pages.length;
+        return;
+    }
+
+    requestedSlideCount = count;
+    resizeSlides(count);
+}
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+}
+
+function addSlide() {
+    const container = document.getElementById('slidesContainer');
+    if (container.querySelectorAll('.slide-page').length >= 100) {
+        alert(getL('maxSlidesReached'));
+        return;
+    }
+    const extraCount = container.querySelectorAll('.auto-slide').length;
+    container.appendChild(createAutoSlide(extraCount));
+    updateSlideCount();
+}
+
+function createAutoSlide(extraCount) {
+    const isEn = currentLang === 'en';
+    const topic = allTopics[Number(document.getElementById('topicSelect').value)] || allTopics[0];
+    const text = (hi, en) => isEn ? (en || hi) : hi;
+    const topicTitle = text(topic.title, topic.titleEn);
+    const intro = text(topic.intro, topic.introEn) || [];
+    const cards = (topic.cards || []).map(card => `${text(card.t, card.tEn)}: ${text(card.d, card.dEn)}`);
+    const steps = text(topic.steps, topic.stepsEn) || [];
+    const uses = text(topic.uses, topic.usesEn) || [];
+    const pros = text(topic.pros, topic.prosEn) || [];
+    const challenges = text(topic.challenges, topic.challengesEn) || [];
+    const fact = text(topic.fact, topic.factEn);
+    const conclusion = text(topic.conc, topic.concEn);
+    const sections = [
+        { title: text('मुख्य अवधारणाएँ: विस्तार', 'Key Concepts: In Detail'), points: cards, highlight: fact },
+        { title: text('प्रमुख चरण एवं कार्यप्रणाली', 'Key Steps & Process'), points: steps, highlight: text(topic.sub, topic.subEn) },
+        { title: text('व्यावहारिक उपयोग', 'Practical Applications'), points: uses, highlight: text(`इन उपयोगों को ${topicTitle} के संदर्भ में समझें।`, `Consider these applications in the context of ${topicTitle}.`) },
+        { title: text('लाभ और चुनौतियाँ', 'Benefits & Challenges'), points: [...pros.map(item => `${text('लाभ', 'Benefit')}: ${item}`), ...challenges.map(item => `${text('चुनौती', 'Challenge')}: ${item}`)], highlight: conclusion },
+        { title: text('विषय के आधारभूत बिंदु', 'Foundational Points'), points: intro, highlight: fact },
+        { title: text('निष्कर्ष एवं आगे की दिशा', 'Conclusion & Next Steps'), points: [conclusion, text(topic.sub, topic.subEn), ...uses.slice(0, 2)], highlight: text('सीखी गई बातों को सही संदर्भ में लागू करें।', 'Apply the learning in the right context.') },
+        { title: text('चर्चा के प्रश्न', 'Discussion Questions'), points: isEn
+            ? [`What is the central idea of ${topicTitle}?`, `Where can ${topicTitle} be seen in everyday life?`, `What challenge related to ${topicTitle} deserves further study?`]
+            : `${topicTitle} का मुख्य विचार क्या है?|यह विषय दैनिक जीवन में कहाँ दिखाई देता है?|इस विषय से जुड़ी किस चुनौती पर आगे अध्ययन करना चाहिए?`.split('|'), highlight: fact },
+        { title: text('अध्ययन एवं परियोजना गतिविधि', 'Study & Project Activity'), points: isEn
+            ? [`Choose one idea from ${topicTitle} and explain it with an example.`, 'Gather information from two reliable sources and compare them.', 'Present one finding and one practical recommendation.']
+            : `${topicTitle} की एक अवधारणा चुनकर उदाहरण सहित समझाएँ।|दो विश्वसनीय स्रोतों से जानकारी लेकर उनकी तुलना करें।|एक निष्कर्ष और एक व्यावहारिक सुझाव प्रस्तुत करें।`.split('|'), highlight: text('तथ्यों और स्रोतों की जाँच करके निष्कर्ष तैयार करें।', 'Check evidence and sources before drawing a conclusion.') }
+    ];
+    const section = sections[extraCount % sections.length];
+    const cycle = Math.floor(extraCount / sections.length);
+    const slideTitle = cycle ? `${section.title} (${text('भाग', 'Part')} ${cycle + 1})` : section.title;
+    const points = section.points.length ? section.points : [conclusion || topicTitle];
+    const slide = document.createElement('div');
+    slide.className = 'slide-page extra-slide auto-slide';
+    slide.dataset.slideKind = 'auto';
+    slide.innerHTML = `
+        <div class="slide-header">
+            <h2 contenteditable="true">${escapeHtml(slideTitle)}</h2>
+            <span class="slide-tag"></span>
+        </div>
+        <div class="slide-body">
+            <div class="content-card">
+                <h3 contenteditable="true">${escapeHtml(text('मुख्य बिंदु', 'Key Points'))}</h3>
+                <ul class="bullet-list" contenteditable="true">${points.map(point => `<li>${escapeHtml(point)}</li>`).join('')}</ul>
+            </div>
+            <div class="highlight-banner" contenteditable="true">${escapeHtml(section.highlight || fact || conclusion || topicTitle)}</div>
+        </div>
+        <div class="slide-footer">
+            <span contenteditable="true">${escapeHtml(document.getElementById('inpInstName').value)}</span>
+            <span contenteditable="true">${escapeHtml(document.getElementById('inpStudent').value)} (${escapeHtml(document.getElementById('inpClass').value)})</span>
+        </div>`;
+    return slide;
+}
+
+function addBlankSlides() {
+    const input = document.getElementById('blankSlideCount');
+    const count = Number(input.value);
+    if (!Number.isInteger(count) || count < 1) {
+        alert(getL('blankSlideCountError'));
+        input.focus();
+        return;
+    }
+
+    const container = document.getElementById('slidesContainer');
+    if (container.querySelectorAll('.slide-page').length + count > 100) {
+        alert(getL('maxSlidesReached'));
+        return;
+    }
+    for (let index = 0; index < count; index++) {
+        const slide = document.createElement('div');
+        slide.className = 'slide-page extra-slide blank-slide';
+        slide.dataset.slideKind = 'blank';
+        const writingHint = currentLang === 'en' ? 'Click here and type your content' : 'यहाँ क्लिक करके अपनी सामग्री लिखें';
+        slide.innerHTML = `
+            <div class="slide-header">
+                <h2 contenteditable="true"></h2>
+                <span class="slide-tag"></span>
+            </div>
+            <div class="slide-body">
+                <div class="blank-slide-writing-area" contenteditable="true" data-placeholder="${writingHint}"></div>
+            </div>
+            <div class="slide-footer">
+                <span contenteditable="true"></span>
+                <span contenteditable="true"></span>
+            </div>`;
+        container.appendChild(slide);
+    }
+    updateSlideCount();
+}
+
+// Fullscreen presentation
+let currentIdx = 0;
+function startPresentation() {
+    document.body.classList.add('ppt-play');
+    currentIdx = 0;
+    updatePlaySlide();
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    }
+}
+function stopPresentation() {
+    document.body.classList.remove('ppt-play');
+    document.querySelectorAll('.slide-page').forEach(s => s.classList.remove('active-slide'));
+    const first = document.querySelector('.slide-page');
+    if (first) first.classList.add('active-slide');
+    if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+    }
+}
+function moveSlide(step) {
+    const pages = document.querySelectorAll('.slide-page');
+    currentIdx += step;
+    if (currentIdx < 0) currentIdx = 0;
+    if (currentIdx >= pages.length) currentIdx = pages.length - 1;
+    updatePlaySlide();
+}
+function updatePlaySlide() {
+    const pages = document.querySelectorAll('.slide-page');
+    pages.forEach((p, i) => p.classList.toggle('active-slide', i === currentIdx));
+    document.getElementById('playCounter').textContent = `${currentIdx + 1} / ${pages.length}`;
+}
+document.addEventListener('keydown', (e) => {
+    if (!document.body.classList.contains('ppt-play')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); moveSlide(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); moveSlide(-1); }
+    else if (e.key === 'Escape') stopPresentation();
+});
+
+function printPPT() {
+    if (document.body.classList.contains('ppt-play')) stopPresentation();
+    window.print();
+}
+
+const exportLibraryPromises = new Map();
+
+function openDownloadDialog() {
+    document.getElementById('downloadDialog').showModal();
+}
+
+function getPresentationData() {
+    return Array.from(document.querySelectorAll('#slidesContainer .slide-page'), (page, index) => {
+        const isCover = index === 0;
+        const isDiagram = page.classList.contains('diagram-slide');
+        const title = isCover
+            ? page.querySelector('.cover-center h1')?.innerText.trim()
+            : page.querySelector('.slide-header h2')?.innerText.trim();
+        const diagramCategory = isDiagram ? page.querySelector('.topic-map-root small')?.innerText.trim() || '' : '';
+        const diagramCenter = isDiagram ? page.querySelector('.topic-map-root h3')?.innerText.trim() || '' : '';
+        const diagramNodes = isDiagram
+            ? Array.from(page.querySelectorAll('.topic-map-node'), node => ({
+                title: node.querySelector('h3')?.innerText.trim() || '',
+                body: node.querySelector('p')?.innerText.trim() || ''
+            }))
+            : [];
+        const institution = isCover ? page.querySelector('.inst-title')?.innerText.trim() || '' : '';
+        const subtitle = isCover ? page.querySelector('.cover-center p')?.innerText.trim() || '' : '';
+        const coverFooter = isCover
+            ? Array.from(page.querySelectorAll('.cover-footer .meta-box'), box => box.innerText.trim().replace(/\n+/g, ': ')).join('  |  ')
+            : '';
+        const content = isCover
+            ? [institution, subtitle, coverFooter].filter(Boolean).join('\n')
+            : page.querySelector('.slide-body')?.innerText.trim() || '';
+        const footer = page.querySelector('.slide-footer')?.innerText.trim() || '';
+        return { title: title || 'Kotdwar Presentation', institution, subtitle, coverFooter, content, footer, isCover, isDiagram, diagramCategory, diagramCenter, diagramNodes };
+    });
+}
+
+function getExportFileName(title) {
+    return title.replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, '-').slice(0, 80) || 'Kotdwar-Presentation';
+}
+
+function loadExportLibrary(globalName, source) {
+    if (window[globalName]) return Promise.resolve(window[globalName]);
+    if (!exportLibraryPromises.has(globalName)) {
+        const promise = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = source;
+            script.async = true;
+            script.onload = () => window[globalName] ? resolve(window[globalName]) : reject(new Error(`${globalName} library failed to load.`));
+            script.onerror = () => reject(new Error(`${globalName} library could not be downloaded.`));
+            document.head.appendChild(script);
+        }).catch(error => {
+            exportLibraryPromises.delete(globalName);
+            throw error;
+        });
+        exportLibraryPromises.set(globalName, promise);
+    }
+    return exportLibraryPromises.get(globalName);
+}
+
+function triggerFileDownload(blob, fileName) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportPowerPoint(slides, title, fileName) {
+    return loadExportLibrary('PptxGenJS', 'https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js').then(async PptxGenJS => {
+        const pptx = new PptxGenJS();
+        const primary = getComputedStyle(document.body).getPropertyValue('--primary').trim().replace('#', '').toUpperCase() || '0F2C59';
+        const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim().replace('#', '').toUpperCase() || 'D97706';
+        const fontFace = currentLang === 'en' ? 'Arial' : 'Nirmala UI';
+        pptx.layout = 'LAYOUT_WIDE';
+        pptx.author = 'Kotdwar PPT Studio';
+        pptx.title = title;
+        pptx.theme = { headFontFace: fontFace, bodyFontFace: fontFace, lang: currentLang === 'en' ? 'en-US' : 'hi-IN' };
+
+        slides.forEach((item, index) => {
+            const slide = pptx.addSlide();
+            slide.background = { color: item.isCover ? primary : 'F8FAFC' };
+            if (item.isCover) {
+                slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.18, h: 7.5, line: { color: accent }, fill: { color: accent } });
+                slide.addText(item.institution, { x: 0.8, y: 0.55, w: 11.7, h: 0.8, fontFace, fontSize: 18, color: 'FFFFFF', margin: 0, fit: 'shrink' });
+                slide.addText(item.title, { x: 0.8, y: 2.0, w: 11.7, h: 1.8, fontFace, fontSize: 34, bold: true, color: 'FFFFFF', margin: 0.05, fit: 'shrink', valign: 'mid' });
+                slide.addText(item.subtitle, { x: 0.85, y: 4.0, w: 11.5, h: 1.0, fontFace, fontSize: 20, color: 'E2E8F0', margin: 0.05, fit: 'shrink' });
+                slide.addText(item.coverFooter, { x: 0.85, y: 6.2, w: 11.5, h: 0.6, fontFace, fontSize: 12, color: 'FFFFFF', margin: 0, fit: 'shrink' });
+                return;
+            }
+
+            if (item.isDiagram) {
+                const nodeColors = ['0F766E', 'B45309', 'BE123C'];
+                const nodeX = [0.58, 4.77, 8.96];
+                const nodeCenters = nodeX.map(x => x + 1.9);
+                slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.78, line: { color: primary }, fill: { color: primary } });
+                slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0.78, w: 13.333, h: 0.06, line: { color: accent }, fill: { color: accent } });
+                slide.addText(item.title, { x: 0.55, y: 0.12, w: 12.2, h: 0.5, fontFace, fontSize: 22, bold: true, color: 'FFFFFF', margin: 0.02, fit: 'shrink' });
+
+                slide.addShape(pptx.ShapeType.line, { x: 6.665, y: 2.12, w: 0, h: 0.35, line: { color: primary, width: 2 } });
+                slide.addShape(pptx.ShapeType.line, { x: nodeCenters[0], y: 2.47, w: nodeCenters[2] - nodeCenters[0], h: 0, line: { color: primary, width: 2 } });
+                nodeCenters.forEach(center => slide.addShape(pptx.ShapeType.line, { x: center, y: 2.47, w: 0, h: 0.35, line: { color: primary, width: 2 } }));
+
+                slide.addShape(pptx.ShapeType.roundRect, { x: 3.35, y: 1.12, w: 6.63, h: 1.0, rectRadius: 0.08, line: { color: primary, width: 1 }, fill: { color: primary } });
+                slide.addText(item.diagramCategory, { x: 3.55, y: 1.23, w: 6.23, h: 0.22, fontFace, fontSize: 10, bold: true, color: 'FDE68A', align: 'center', margin: 0, fit: 'shrink' });
+                slide.addText(item.diagramCenter, { x: 3.55, y: 1.48, w: 6.23, h: 0.48, fontFace, fontSize: 19, bold: true, color: 'FFFFFF', align: 'center', valign: 'mid', margin: 0.02, fit: 'shrink' });
+
+                item.diagramNodes.slice(0, 3).forEach((node, nodeIndex) => {
+                    const color = nodeColors[nodeIndex];
+                    slide.addShape(pptx.ShapeType.roundRect, { x: nodeX[nodeIndex], y: 2.82, w: 3.8, h: 3.75, rectRadius: 0.06, line: { color, width: 1.2 }, fill: { color: 'FFFFFF' } });
+                    slide.addShape(pptx.ShapeType.rect, { x: nodeX[nodeIndex], y: 2.82, w: 3.8, h: 0.16, line: { color }, fill: { color } });
+                    slide.addText(`0${nodeIndex + 1}`, { x: nodeX[nodeIndex] + 0.2, y: 3.15, w: 0.5, h: 0.35, fontFace, fontSize: 14, bold: true, color, margin: 0 });
+                    slide.addText(node.title, { x: nodeX[nodeIndex] + 0.2, y: 3.6, w: 3.4, h: 0.8, fontFace, fontSize: 16, bold: true, color: primary, margin: 0.02, fit: 'shrink', valign: 'mid' });
+                    slide.addText(node.body, { x: nodeX[nodeIndex] + 0.2, y: 4.52, w: 3.4, h: 1.75, fontFace, fontSize: 12, color: '1E293B', margin: 0.04, fit: 'shrink', valign: 'top' });
+                });
+                slide.addText(item.footer || '', { x: 0.7, y: 7.1, w: 11.95, h: 0.22, fontFace, fontSize: 9, color: '475569', margin: 0, fit: 'shrink' });
+                return;
+            }
+
+            slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 13.333, h: 0.78, line: { color: primary }, fill: { color: primary } });
+            slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0.78, w: 13.333, h: 0.06, line: { color: accent }, fill: { color: accent } });
+            slide.addText(item.title, { x: 0.85, y: 0.12, w: 11.65, h: 0.5, fontFace, fontSize: 22, bold: true, color: 'FFFFFF', margin: 0.08, fit: 'shrink' });
+            slide.addText(item.content, { x: 1.0, y: 1.15, w: 11.3, h: 5.75, fontFace, fontSize: 17, color: '1E293B', margin: 0.18, fit: 'shrink', valign: 'mid', breakLine: false });
+            slide.addText(item.footer || `${index + 1} / ${slides.length}`, { x: 1.0, y: 7.1, w: 11.3, h: 0.22, fontFace, fontSize: 9, color: '475569', margin: 0.04, fit: 'shrink' });
+        });
+
+        await pptx.writeFile({ fileName: `${fileName}.pptx` });
+    });
+}
+
+function escapeXml(value) {
+    return value.replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[character]));
+}
+
+async function exportWordDocument(slides, title, fileName) {
+    const JSZip = await loadExportLibrary('JSZip', 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js');
+    const wordColors = Object.fromEntries(['--primary', '--secondary', '--accent', '--light-accent'].map(name => [
+        name,
+        getComputedStyle(document.body).getPropertyValue(name).trim().replace('#', '').toUpperCase()
+    ]));
+    const makeRun = (text, { color = '1E293B', size = 22, bold = false, italic = false } = {}) =>
+        `<w:r><w:rPr><w:rFonts w:ascii="Nirmala UI" w:hAnsi="Nirmala UI" w:eastAsia="Nirmala UI" w:cs="Nirmala UI"/><w:color w:val="${color}"/><w:sz w:val="${size}"/>${bold ? '<w:b/>' : ''}${italic ? '<w:i/>' : ''}</w:rPr><w:t xml:space="preserve">${escapeXml(text)}</w:t></w:r>`;
+    const makeParagraph = (text, options = {}) => {
+        const { fill, color, size, bold, italic, accentBorder, before = 60, after = 100, indent = 150 } = options;
+        const shading = fill ? `<w:shd w:val="clear" w:color="auto" w:fill="${fill}"/>` : '';
+        const border = accentBorder ? `<w:pBdr><w:left w:val="single" w:sz="28" w:space="8" w:color="${accentBorder}"/></w:pBdr>` : '';
+        return `<w:p><w:pPr><w:spacing w:before="${before}" w:after="${after}"/><w:ind w:left="${indent}" w:right="120"/>${shading}${border}</w:pPr>${makeRun(text, { color, size, bold, italic })}</w:p>`;
+    };
+    const paragraphs = [];
+    slides.forEach((item, index) => {
+        if (index > 0) paragraphs.push('<w:p><w:r><w:br w:type="page"/></w:r></w:p>');
+        paragraphs.push(makeParagraph(item.title, { fill: wordColors['--primary'], color: 'FFFFFF', size: item.isCover ? 34 : 28, bold: true, before: 160, after: 220, indent: 220 }));
+
+        if (item.isDiagram) {
+            if (item.diagramCategory) paragraphs.push(makeParagraph(item.diagramCategory, { color: wordColors['--accent'], size: 20, bold: true, after: 80 }));
+            paragraphs.push(makeParagraph(item.diagramCenter, { fill: wordColors['--secondary'], color: 'FFFFFF', size: 26, bold: true, before: 100, after: 160, indent: 220 }));
+            item.diagramNodes.forEach((node, nodeIndex) => {
+                paragraphs.push(makeParagraph(`${String(nodeIndex + 1).padStart(2, '0')}  ${node.title}`, { fill: wordColors['--light-accent'], color: wordColors['--primary'], size: 23, bold: true, before: 100, after: 60 }));
+                paragraphs.push(makeParagraph(node.body, { color: '1E293B', size: 21, accentBorder: wordColors['--accent'], after: 150, indent: 260 }));
+            });
+        } else {
+            item.content.split(/\n+/).map(line => line.trim()).filter(Boolean).forEach((line, lineIndex) => {
+                paragraphs.push(makeParagraph(line, {
+                    fill: lineIndex % 2 === 0 ? wordColors['--light-accent'] : 'F8FAFC',
+                    color: '1E293B',
+                    size: 21,
+                    accentBorder: lineIndex % 2 === 0 ? wordColors['--accent'] : null,
+                    after: 90
+                }));
+            });
+        }
+
+        if (item.footer) paragraphs.push(makeParagraph(item.footer, { color: wordColors['--secondary'], size: 18, italic: true, before: 120, after: 40 }));
+    });
+
+    const zip = new JSZip();
+    zip.file('[Content_Types].xml', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>');
+    zip.file('_rels/.rels', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+    zip.file('word/_rels/document.xml.rels', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+    zip.file('word/styles.xml', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:rPr><w:rFonts w:ascii="Nirmala UI" w:hAnsi="Nirmala UI" w:eastAsia="Nirmala UI" w:cs="Nirmala UI"/><w:sz w:val="22"/></w:rPr></w:style></w:styles>');
+    zip.file('word/document.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:background w:color="${wordColors['--light-accent']}"/><w:body>${paragraphs.join('')}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>`);
+    const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+    triggerFileDownload(blob, `${fileName}.docx`);
+}
+
+async function downloadPresentation(format) {
+    document.getElementById('downloadDialog').close();
+    if (format === 'pdf') {
+        printPPT();
+        return;
+    }
+
+    const slides = getPresentationData();
+    const title = slides[0]?.title || 'Kotdwar Presentation';
+    const fileName = getExportFileName(title);
+    try {
+        if (format === 'pptx') await exportPowerPoint(slides, title, fileName);
+        else if (format === 'docx') await exportWordDocument(slides, title, fileName);
+    } catch (error) {
+        console.error(error);
+        alert(`${getL('exportError')}\n${error.message}`);
+    }
+}
+
+// Init
+fillTopicSelect();
+changeOrientation();
+renderSlides();
+</script>
+</body>
+</html>
